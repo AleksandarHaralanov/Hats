@@ -1,5 +1,7 @@
 # Hats
 Allows items and blocks to be worn as hats.
+
+<b>Download latest release [here](https://github.com/AleksandarHaralanov/Hats/releases/latest).</b>
 # Usage
 By default, only OPs have permissions. Use PermissionsEx or similar plugins to grant groups the ```hats.wear``` permission, enabling the ```/hat``` command.
 

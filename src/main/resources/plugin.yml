@@ -1,0 +1,16 @@
+main: me.beezle.hats.Hats
+version: 1.0
+name: Hats
+authors: [Beezle]
+description: Players can wear blocks and items as hats.
+
+commands:
+  hat:
+    description: Set the item in hand as a hat.
+    permission: hats.wear
+    usage: /hat
+
+permissions:
+    hats.wear:
+      description: Allows the player to wear blocks and items as hats.
+      default: op

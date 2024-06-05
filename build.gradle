@@ -1,0 +1,15 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation files("libs/poseidon.jar")
+}
+
+jar {
+    archiveBaseName = 'Hats'
+}

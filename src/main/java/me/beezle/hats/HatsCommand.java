@@ -31,8 +31,8 @@ public class HatsCommand implements CommandExecutor {
         ItemStack inHand = inventory.getItemInHand().clone();
         boolean allowArmor = Hats.getInstance().getConfig().getBooleanConfigOption("allowArmor", false);
         if (!allowArmor && isArmorType(inHand)) {
-                commandSender.sendMessage(ChatColor.RED + String.format("You are not allowed to wear %s as a hat!", inHand.getType()));
-                return true;
+            commandSender.sendMessage(ChatColor.RED + String.format("You are not allowed to wear %s as a hat!", inHand.getType()));
+            return true;
         }
 
         if (inventory.getHelmet().getType() != Material.AIR && inventory.getHelmet().getType() != null) {

@@ -14,12 +14,12 @@ public class Hats extends JavaPlugin {
         instance = this;
         config = new HatsConfig(new File(getDataFolder(), "config.yml"));
         getCommand("hat").setExecutor(new HatsCommand());
-        System.out.print("[Hats] Enabled.");
+        System.out.print("[Hats v1.0.0] Enabled.");
     }
 
     @Override
     public void onDisable() {
-        System.out.print("[Hats] Disabled.");
+        System.out.print("[Hats v1.0.0] Disabled.");
     }
 
     public HatsConfig getConfig() {

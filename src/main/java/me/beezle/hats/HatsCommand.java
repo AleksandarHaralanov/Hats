@@ -13,7 +13,7 @@ public class HatsCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, org.bukkit.command.Command command, String s, String[] strings) {
         if (!(commandSender instanceof Player)) {
-            commandSender.sendMessage("[Hats] You cannot run this command from the terminal.");
+            commandSender.sendMessage("[Hats v1.0.0] You cannot run this command from the terminal.");
             return true;
         }
 

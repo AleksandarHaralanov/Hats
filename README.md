@@ -10,5 +10,5 @@ By default, only OPs have permissions. Use PermissionsEx or similar plugins to g
 - Command: ```/hat```
 - Permission: ```hats.wear```
 
-You can disable wearing armor as hats (except helmets) in ```Hats\config.yml```.
+You can disable wearing armor as hats (except helmets) in ```plugins\Hats\config.yml```.
 - This is optional, but note that armor worn in the helmet slot grants more protection than usual and therefore, if you care, it is considered a 'cheat'.

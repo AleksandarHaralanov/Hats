@@ -2,7 +2,6 @@
 Allows items and blocks to be worn as hats.
 
 <b>Download latest release [here](https://github.com/AleksandarHaralanov/Hats/releases/latest).</b>
-
 - Compiled on Adoptium JDK 8 and [Poseidon](https://github.com/RhysB/Project-Poseidon), fork of CB1060.
 
 # Usage

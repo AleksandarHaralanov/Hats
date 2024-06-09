@@ -13,11 +13,11 @@ public class HatsCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, org.bukkit.command.Command command, String s, String[] strings) {
         if (!(commandSender instanceof Player)) {
-            commandSender.sendMessage("[Hats v1.0.0] You cannot run this command from the terminal.");
+            commandSender.sendMessage("[Hats v1.1.0] You cannot run this command from the terminal.");
             return true;
         }
 
-        if (!commandSender.hasPermission("hats.wear")) {
+        if (!(commandSender.hasPermission("hats.wear") || !commandSender.isOp()) && strings[0].equalsIgnoreCase("hat")) {
             commandSender.sendMessage(ChatColor.RED + "You do not have permissions to wear hats.");
             return true;
         }
@@ -29,7 +29,7 @@ public class HatsCommand implements CommandExecutor {
         }
 
         ItemStack inHand = inventory.getItemInHand().clone();
-        boolean allowArmor = Hats.getInstance().getConfig().getBooleanConfigOption("allowArmor", false);
+        boolean allowArmor = Hats.getInstance().getConfig().get("allowArmor", false);
         if (!allowArmor && isArmorType(inHand)) {
             commandSender.sendMessage(ChatColor.RED + String.format("You are not allowed to wear %s as a hat!", inHand.getType()));
             return true;

@@ -8,7 +8,8 @@ commands:
   hat:
     description: Set the item in hand as a hat.
     permission: hats.wear
-    usage: /hat
+    permission-message: You do not have permissions to wear hats.
+    usage: /<command>
 
 permissions:
     hats.wear:

@@ -17,7 +17,7 @@ public class HatsCommand implements CommandExecutor {
             return true;
         }
 
-        if (!(commandSender.hasPermission("hats.wear") || !commandSender.isOp()) && strings[0].equalsIgnoreCase("hat")) {
+        if (!(commandSender.hasPermission("hats.wear") || commandSender.isOp()) && strings[0].equalsIgnoreCase("hat")) {
             commandSender.sendMessage(ChatColor.RED + "You do not have permissions to wear hats.");
             return true;
         }

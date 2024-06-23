@@ -6,7 +6,7 @@ Allows blocks to be worn as hats.
 
 ## Features
 - Wear a block as a hat. [(ID 1 - 96)](https://imgur.com/RIVgSD7)
-- Implements precise checks for various conditions including no item held, hat already worn, swap of new and old hat, and dropping the old hat on the ground when a new one is equipped with a full inventory.
+- Implements precise checks for various conditions such as: No block held in hand, item cannot be worn as a hat, held block is already worn as a hat, swap of new and old hat, and dropping the old hat on the ground when a new one is equipped with a full inventory.
 - Enforces checks to ensure only one unit of X block is worn in the helmet slot, preventing players from using it as an additional inventory slot.
 
 ## Usage

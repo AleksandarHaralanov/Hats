@@ -30,23 +30,25 @@ public class HatsCommand implements CommandExecutor {
 
         if (strings.length > 0 && !strings[0].equalsIgnoreCase("version")) {
             if (player != null) {
-                commandSender.sendMessage(ChatColor.RED + "Invalid arguments. Correct usage is " + ChatColor.YELLOW + "/hat [version]" + ChatColor.RED + ".");
+                commandSender.sendMessage(ChatColor.RED + "Invalid arguments. Correct usage is " + ChatColor.YELLOW + "/hat [version]");
             } else {
-                getLogger().info("Invalid arguments. Correct usage is /hat [version].");
+                getLogger().info("Invalid arguments. Correct usage is /hat [version]");
             }
 
             return true;
         } else if (strings.length > 0 && strings[0].equalsIgnoreCase("version")) {
             if (player != null) {
-                commandSender.sendMessage(String.format(ChatColor.AQUA + "Currently running on version " + ChatColor.YELLOW + "%s" + ChatColor.AQUA + ".", version));
+                commandSender.sendMessage(String.format(ChatColor.AQUA + "Currently running on version " + ChatColor.YELLOW + "%s", version));
+                commandSender.sendMessage(ChatColor.AQUA + "Source: " + ChatColor.YELLOW + "github.com/AleksandarHaralanov/Hats");
             } else {
-                getLogger().info(String.format("[Hats] Currently running on version %s.", version));
+                getLogger().info(String.format("Currently running on version %s", version));
+                getLogger().info("Source: github.com/AleksandarHaralanov/Hats");
             }
 
             return true;
         } else {
             if (!(commandSender instanceof Player)) {
-                getLogger().info("[Hats] Terminals cannot wear hats.");
+                getLogger().info("Terminals cannot wear hats.");
                 return true;
             }
 

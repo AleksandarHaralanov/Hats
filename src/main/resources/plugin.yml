@@ -1,5 +1,5 @@
 main: me.beezle.hats.Hats
-version: 2.0.0
+version: 2.0.1
 name: Hats
 author: Beezle
 website: https://github.com/AleksandarHaralanov
@@ -10,7 +10,7 @@ commands:
     description: Set the block in hand as a hat.
     permission: hats.wear
     permission-message: You do not have permissions to wear hats.
-    usage: /<command>
+    usage: /<command> [version]
 
 permissions:
     hats.wear:

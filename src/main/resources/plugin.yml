@@ -1,17 +1,18 @@
 main: me.beezle.hats.Hats
-version: 1.0.1
+version: 2.0.0
 name: Hats
-authors: [Beezle]
-description: Players can wear blocks and items as hats.
+author: Beezle
+website: https://github.com/AleksandarHaralanov
+description: Players can wear blocks as hats.
 
 commands:
   hat:
-    description: Set the item in hand as a hat.
+    description: Set the block in hand as a hat.
     permission: hats.wear
     permission-message: You do not have permissions to wear hats.
     usage: /<command>
 
 permissions:
     hats.wear:
-      description: Allows the player to wear blocks and items as hats.
+      description: Allows the player to wear blocks as hats.
       default: op

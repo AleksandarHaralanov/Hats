@@ -11,5 +11,7 @@ Allows blocks to be worn as hats.
 
 ## Usage
 By default, only OPs have permissions.<br>Use PermissionsEx or similar plugins to grant groups the permission, enabling the command.
-- Command: ```/hat```
-- Permission: ```hats.wear```
+- Commands:
+  - `/hat`
+  - `/hat version`
+- Permission: `hats.wear`

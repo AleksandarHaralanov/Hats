@@ -35,10 +35,16 @@ public class HatsCommand implements CommandExecutor {
                 getLogger().info(String.format("Hats is currently running on version %s.", version));
             }
             return true;
-        }
-        else {
+        } else if (strings.length > 0 && !strings[0].equalsIgnoreCase("version")) {
+            if (player != null) {
+                commandSender.sendMessage(ChatColor.RED + ("Invalid arguments. Correct usage is '/hat [version]'"));
+            } else {
+                getLogger().info("Invalid arguments. Correct usage is '/hat [version]'");
+            }
+            return true;
+        } else {
             if (!(commandSender instanceof Player)) {
-                getLogger().info(String.format("[Hats v%s] You cannot run this command from the terminal.", version));
+                getLogger().info("Terminals cannot wear hats.");
                 return true;
             }
 

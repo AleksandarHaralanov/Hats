@@ -9,43 +9,59 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.Material;
 import org.bukkit.material.MaterialData;
 
+import static org.bukkit.Bukkit.getLogger;
+
 import java.util.Objects;
 
 public class HatsCommand implements CommandExecutor {
 
+    String version;
+
+    public HatsCommand(String version) {
+        this.version = version;
+    }
+
     @Override
     public boolean onCommand(CommandSender commandSender, org.bukkit.command.Command command, String s, String[] strings) {
         Player player = null;
-        if (!(commandSender instanceof Player)) {
-            commandSender.sendMessage("[Hats v2.0.0] You cannot run this command from the terminal.");
-        }
-        else {
+        if (commandSender instanceof Player) {
             player = (Player) commandSender;
         }
 
-        if (!(commandSender.hasPermission("hats.wear") || commandSender.isOp())) {
-            commandSender.sendMessage(ChatColor.RED + "You do not have permissions to wear hats.");
+        if (strings.length > 0 && strings[0].equalsIgnoreCase("version")) {
+            if (player != null) {
+                commandSender.sendMessage(ChatColor.AQUA + String.format("Hats is currently running on version %s.", version));
+            } else {
+                getLogger().info(String.format("Hats is currently running on version %s.", version));
+            }
+            return true;
         }
         else {
-            this.hatWear(player, Objects.requireNonNull(player).getItemInHand());
-        }
+            if (!(commandSender instanceof Player)) {
+                getLogger().info(String.format("[Hats v%s] You cannot run this command from the terminal.", version));
+                return true;
+            }
 
-        return true;
+            if (!(commandSender.hasPermission("hats.wear") || commandSender.isOp())) {
+                commandSender.sendMessage(ChatColor.RED + "You do not have permissions to wear hats.");
+            } else {
+                this.hatWear(player, Objects.requireNonNull(player).getItemInHand());
+            }
+            return true;
+        }
     }
 
     public void hatWear(Player player, ItemStack item) {
         if (item.getType() == Material.AIR) {
-            player.sendMessage(ChatColor.RED + "You are not holding an item.");
-        }
-        else {
+            player.sendMessage(ChatColor.RED + "You are not holding a block.");
+        } else {
             int itemId = item.getTypeId();
+
             if (!(itemId >= 1 && itemId <= 96)) {
                 player.sendMessage(ChatColor.RED + String.format("%s cannot be worn as a hat.", item.getType().name()));
-            }
-            else if (player.getInventory().getHelmet().getType() == item.getType()) {
+            } else if (player.getInventory().getHelmet().getType() == item.getType()) {
                 player.sendMessage(ChatColor.RED + String.format("%s already worn as a hat.", item.getType().name()));
-            }
-            else {
+            } else {
                 PlayerInventory inventory = player.getInventory();
                 ItemStack hat = new ItemStack(item.getType(), item.getAmount() < 0 ? item.getAmount() : 1, item.getDurability());
                 MaterialData data = item.getData();
@@ -63,8 +79,7 @@ public class HatsCommand implements CommandExecutor {
                         removeExact(inventory, item);
                     }
                     player.sendMessage(ChatColor.AQUA + String.format("%s worn as a hat.", item.getType().name()));
-                }
-                else if (inventory.firstEmpty() != -1) {
+                } else if (inventory.firstEmpty() != -1) {
                     inventory.addItem(helmet);
                     inventory.setHelmet(hat);
                     if (item.getAmount() > 1) {
@@ -73,8 +88,7 @@ public class HatsCommand implements CommandExecutor {
                         removeExact(inventory, item);
                     }
                     player.sendMessage(ChatColor.AQUA + String.format("%s swapped for %s as the new hat.", helmet.getType().name(), item.getType().name()));
-                }
-                else {
+                } else {
                     player.getWorld().dropItemNaturally(player.getLocation(), helmet);
                     inventory.setHelmet(hat);
                     if (item.getAmount() > 1) {

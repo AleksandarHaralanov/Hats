@@ -16,6 +16,6 @@ public class Hats extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        getLogger().info(String.format("[Hats] v%s Enabled.", version));
+        getLogger().info(String.format("[Hats] v%s Disabled.", version));
     }
 }

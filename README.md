@@ -10,6 +10,6 @@ Allows blocks to be worn as hats.
 - Enforces checks to ensure only one unit of X block is worn in the helmet slot, preventing players from using it as an additional inventory slot.
 
 ## Usage
-By default, only OPs have permissions. Use PermissionsEx or similar plugins to grant groups the permission, enabling the command.
+By default, only OPs have permissions.<br>Use PermissionsEx or similar plugins to grant groups the permission, enabling the command.
 - Command: ```/hat```
 - Permission: ```hats.wear```

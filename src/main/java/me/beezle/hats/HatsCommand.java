@@ -28,23 +28,25 @@ public class HatsCommand implements CommandExecutor {
             player = (Player) commandSender;
         }
 
-        if (strings.length > 0 && strings[0].equalsIgnoreCase("version")) {
+        if (strings.length > 0 && !strings[0].equalsIgnoreCase("version")) {
             if (player != null) {
-                commandSender.sendMessage(ChatColor.AQUA + String.format("Hats is currently running on version %s.", version));
+                commandSender.sendMessage(ChatColor.RED + "Invalid arguments. Correct usage is " + ChatColor.YELLOW + "/hat [version]" + ChatColor.RED + ".");
             } else {
-                getLogger().info(String.format("Hats is currently running on version %s.", version));
+                getLogger().info("Invalid arguments. Correct usage is /hat [version].");
             }
+
             return true;
-        } else if (strings.length > 0 && !strings[0].equalsIgnoreCase("version")) {
+        } else if (strings.length > 0 && strings[0].equalsIgnoreCase("version")) {
             if (player != null) {
-                commandSender.sendMessage(ChatColor.RED + ("Invalid arguments. Correct usage is '/hat [version]'"));
+                commandSender.sendMessage(String.format(ChatColor.AQUA + "Currently running on version " + ChatColor.YELLOW + "%s" + ChatColor.AQUA + ".", version));
             } else {
-                getLogger().info("Invalid arguments. Correct usage is '/hat [version]'");
+                getLogger().info(String.format("[Hats] Currently running on version %s.", version));
             }
+
             return true;
         } else {
             if (!(commandSender instanceof Player)) {
-                getLogger().info("Terminals cannot wear hats.");
+                getLogger().info("[Hats] Terminals cannot wear hats.");
                 return true;
             }
 
@@ -53,6 +55,7 @@ public class HatsCommand implements CommandExecutor {
             } else {
                 this.hatWear(player, Objects.requireNonNull(player).getItemInHand());
             }
+
             return true;
         }
     }
@@ -64,9 +67,9 @@ public class HatsCommand implements CommandExecutor {
             int itemId = item.getTypeId();
 
             if (!(itemId >= 1 && itemId <= 96)) {
-                player.sendMessage(ChatColor.RED + String.format("%s cannot be worn as a hat.", item.getType().name()));
+                player.sendMessage(String.format(ChatColor.YELLOW + "%s" + ChatColor.RED + " cannot be worn as a hat.", item.getType().name()));
             } else if (player.getInventory().getHelmet().getType() == item.getType()) {
-                player.sendMessage(ChatColor.RED + String.format("%s already worn as a hat.", item.getType().name()));
+                player.sendMessage(String.format(ChatColor.YELLOW + "%s" + ChatColor.RED + " already worn as a hat.", item.getType().name()));
             } else {
                 PlayerInventory inventory = player.getInventory();
                 ItemStack hat = new ItemStack(item.getType(), item.getAmount() < 0 ? item.getAmount() : 1, item.getDurability());
@@ -84,7 +87,7 @@ public class HatsCommand implements CommandExecutor {
                     } else {
                         removeExact(inventory, item);
                     }
-                    player.sendMessage(ChatColor.AQUA + String.format("%s worn as a hat.", item.getType().name()));
+                    player.sendMessage(String.format(ChatColor.YELLOW + "%s" + ChatColor.AQUA + " worn as a hat.", item.getType().name()));
                 } else if (inventory.firstEmpty() != -1) {
                     inventory.addItem(helmet);
                     inventory.setHelmet(hat);
@@ -93,7 +96,7 @@ public class HatsCommand implements CommandExecutor {
                     } else {
                         removeExact(inventory, item);
                     }
-                    player.sendMessage(ChatColor.AQUA + String.format("%s swapped for %s as the new hat.", helmet.getType().name(), item.getType().name()));
+                    player.sendMessage(String.format(ChatColor.YELLOW + "%s" + ChatColor.AQUA + " swapped for " + ChatColor.YELLOW + "%s" + ChatColor.AQUA + " as the new hat.", helmet.getType().name(), item.getType().name()));
                 } else {
                     player.getWorld().dropItemNaturally(player.getLocation(), helmet);
                     inventory.setHelmet(hat);
@@ -102,8 +105,8 @@ public class HatsCommand implements CommandExecutor {
                     } else {
                         removeExact(inventory, item);
                     }
-                    player.sendMessage(ChatColor.RED + String.format("No pocket space, dropped old %s hat.", helmet.getType().name()));
-                    player.sendMessage(ChatColor.AQUA + String.format("%s worn as the new hat.", item.getType().name()));
+                    player.sendMessage(String.format(ChatColor.RED + "No pocket space, dropping old " + ChatColor.YELLOW + "%s" + ChatColor.RED + " hat.", helmet.getType().name()));
+                    player.sendMessage(String.format(ChatColor.YELLOW + "%s" + ChatColor.AQUA + " worn as the new hat.", item.getType().name()));
                 }
             }
         }

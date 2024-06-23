@@ -11,11 +11,11 @@ public class Hats extends JavaPlugin {
     public void onEnable() {
         version = this.getDescription().getVersion();
         getCommand("hat").setExecutor(new HatsCommand(version));
-        getLogger().info(String.format("[Hats v%s] Enabled.", version));
+        getLogger().info(String.format("[Hats] v%s Enabled.", version));
     }
 
     @Override
     public void onDisable() {
-        getLogger().info(String.format("[Hats v%s] Enabled.", version));
+        getLogger().info(String.format("[Hats] v%s Enabled.", version));
     }
 }

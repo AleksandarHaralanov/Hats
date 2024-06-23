@@ -4,10 +4,12 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.ChatColor;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.Material;
 import org.bukkit.material.MaterialData;
+
+import java.util.Objects;
 
 public class HatsCommand implements CommandExecutor {
 
@@ -25,7 +27,7 @@ public class HatsCommand implements CommandExecutor {
             commandSender.sendMessage(ChatColor.RED + "You do not have permissions to wear hats.");
         }
         else {
-            this.hatWear(player, player.getItemInHand());
+            this.hatWear(player, Objects.requireNonNull(player).getItemInHand());
         }
 
         return true;

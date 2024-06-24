@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import static org.bukkit.Bukkit.getLogger;
 
 public class Hats extends JavaPlugin {
+
     private static String version;
 
     @Override

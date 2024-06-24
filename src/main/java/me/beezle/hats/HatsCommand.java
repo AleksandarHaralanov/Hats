@@ -64,14 +64,14 @@ public class HatsCommand implements CommandExecutor {
 
     public void hatWear(Player player, ItemStack item) {
         if (item.getType() == Material.AIR) {
-            player.sendMessage(ChatColor.RED + "You are not holding a block.");
+            player.sendMessage(ChatColor.RED + "You are not holding anything.");
         } else {
             int itemId = item.getTypeId();
 
             if (!(itemId >= 1 && itemId <= 96)) {
                 player.sendMessage(String.format(ChatColor.YELLOW + "%s" + ChatColor.RED + " cannot be worn as a hat.", item.getType().name()));
             } else if (player.getInventory().getHelmet().getType() == item.getType()) {
-                player.sendMessage(String.format(ChatColor.YELLOW + "%s" + ChatColor.RED + " already worn as a hat.", item.getType().name()));
+                player.sendMessage(String.format(ChatColor.YELLOW + "%s" + ChatColor.RED + " is already worn as a hat.", item.getType().name()));
             } else {
                 PlayerInventory inventory = player.getInventory();
                 ItemStack hat = new ItemStack(item.getType(), item.getAmount() < 0 ? item.getAmount() : 1, item.getDurability());
@@ -98,7 +98,7 @@ public class HatsCommand implements CommandExecutor {
                     } else {
                         removeExact(inventory, item);
                     }
-                    player.sendMessage(String.format(ChatColor.YELLOW + "%s" + ChatColor.AQUA + " swapped for " + ChatColor.YELLOW + "%s" + ChatColor.AQUA + " as the new hat.", helmet.getType().name(), item.getType().name()));
+                    player.sendMessage(String.format(ChatColor.YELLOW + "%s" + ChatColor.AQUA + " hat swapped for " + ChatColor.YELLOW + "%s" + ChatColor.AQUA + " as the new hat.", helmet.getType().name(), item.getType().name()));
                 } else {
                     player.getWorld().dropItemNaturally(player.getLocation(), helmet);
                     inventory.setHelmet(hat);
@@ -107,7 +107,7 @@ public class HatsCommand implements CommandExecutor {
                     } else {
                         removeExact(inventory, item);
                     }
-                    player.sendMessage(String.format(ChatColor.RED + "No pocket space, dropping old " + ChatColor.YELLOW + "%s" + ChatColor.RED + " hat.", helmet.getType().name()));
+                    player.sendMessage(String.format(ChatColor.RED + "No inventory space, dropping old " + ChatColor.YELLOW + "%s" + ChatColor.RED + " hat to the ground.", helmet.getType().name()));
                     player.sendMessage(String.format(ChatColor.YELLOW + "%s" + ChatColor.AQUA + " worn as the new hat.", item.getType().name()));
                 }
             }

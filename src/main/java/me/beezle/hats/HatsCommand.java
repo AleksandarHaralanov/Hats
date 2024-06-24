@@ -107,7 +107,7 @@ public class HatsCommand implements CommandExecutor {
                     } else {
                         removeExact(inventory, item);
                     }
-                    player.sendMessage(String.format(ChatColor.RED + "No inventory space, dropping old " + ChatColor.YELLOW + "%s" + ChatColor.RED + " hat to the ground.", helmet.getType().name()));
+                    player.sendMessage(String.format(ChatColor.RED + "No pocket space, dropped old " + ChatColor.YELLOW + "%s" + ChatColor.RED + " hat to the ground.", helmet.getType().name()));
                     player.sendMessage(String.format(ChatColor.YELLOW + "%s" + ChatColor.AQUA + " worn as the new hat.", item.getType().name()));
                 }
             }

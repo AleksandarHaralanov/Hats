@@ -7,7 +7,7 @@ repositories {
 }
 
 dependencies {
-    implementation files("libs/poseidon.jar")
+    implementation files('libs/poseidon.jar')
 }
 
 def yml = file('src/main/resources/plugin.yml')

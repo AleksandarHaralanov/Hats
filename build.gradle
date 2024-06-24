@@ -10,6 +10,25 @@ dependencies {
     implementation files("libs/poseidon.jar")
 }
 
+def yml = file('src/main/resources/plugin.yml')
+def name = 'Plugin'
+def version = '1.0.0'
+
+if (yml) {
+    def ymlContents = yml.text
+    def nameMatcher = ymlContents =~ /name:\s*(\S+)/
+    def versionMatcher = ymlContents =~ /version:\s*([\d.]+)/
+
+    if (nameMatcher) {
+        name = nameMatcher[0][1]
+    }
+
+    if (versionMatcher) {
+        version = versionMatcher[0][1]
+    }
+}
+
 jar {
-    archiveBaseName.set('Hats')
+    archiveBaseName.set(name)
+    archiveVersion.set(version)
 }

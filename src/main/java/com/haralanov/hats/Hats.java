@@ -1,6 +1,6 @@
-package me.beezle.hats;
+package com.haralanov.hats;
 
-import me.beezle.extras.UpdateUtil;
+import com.haralanov.utilities.UpdateUtil;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -20,9 +20,10 @@ public class Hats extends JavaPlugin {
 
         getLogger().info(String.format("[%s] v%s Enabled.", pluginName, currentVersion));
 
-        UpdateUtil.checkForUpdates("https://api.github.com/repos/AleksandarHaralanov/Hats/releases/latest", currentVersion, pluginName);
+        UpdateUtil.checkForUpdates(pluginName, currentVersion, "https://api.github.com/repos/AleksandarHaralanov/Hats/releases/latest");
 
-        getCommand("hat").setExecutor(new HatsCommand(currentVersion));
+        getCommand("hat").setExecutor(new HatsCommand(currentVersion, pluginName));
+        getCommand("hats").setExecutor(new HatsCommand(currentVersion, pluginName));
     }
 
     @Override

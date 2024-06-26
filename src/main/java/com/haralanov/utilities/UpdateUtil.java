@@ -1,4 +1,4 @@
-package me.beezle.extras;
+package com.haralanov.utilities;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,13 +10,19 @@ import static org.bukkit.Bukkit.getLogger;
 
 public class UpdateUtil {
 
-    // Template for parsing the variables:
-    // https://api.github.com/repos/USER/REPO/releases/latest | plugin.yml Version Attribute Value | plugin.yml Name Attribute Value
-    public static void checkForUpdates(String stringUrl, String currentVersion, String pluginName) {
+    /**
+     * Checks for updates by querying a given URL and comparing the current version with the latest available version.
+     *
+     * @param pluginName     The name of the plugin, e.g., "Plugin".
+     * @param currentVersion The current version of the plugin, e.g., "1.0.0".
+     * @param apiUrl      The URL to query for the latest release information.
+     *                    E.g., "https://api.github.com/repos/USER/REPO/releases/latest".
+     */
+    public static void checkForUpdates(String pluginName, String currentVersion, String apiUrl) {
         currentVersion = "v" + currentVersion;
         HttpURLConnection connection = null;
         try {
-            URL url = new URL(stringUrl);
+            URL url = new URL(apiUrl);
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
 
@@ -36,7 +42,7 @@ public class UpdateUtil {
 
             String responseBody = content.toString();
             String latestVersion = getLatestVersion(responseBody);
-            compareVersions(pluginName, currentVersion, latestVersion, stringUrl);
+            compareVersions(pluginName, currentVersion, latestVersion, apiUrl);
         } catch (IOException e) {
             getLogger().severe(String.format("[%s] IOException occurred: %s", pluginName, e.getMessage()));
         } finally {

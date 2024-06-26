@@ -1,7 +1,7 @@
-main: me.beezle.hats.Hats
-version: 2.2.0
+main: com.haralanov.hats.Hats
+version: 2.3.0
 name: Hats
-author: Beezle
+author: AleksandarHaralanov
 website: https://github.com/AleksandarHaralanov
 description: Players can wear blocks as hats.
 
@@ -10,7 +10,10 @@ commands:
     description: Set the block in hand as a hat.
     permission: hats.wear
     permission-message: You do not have permissions to wear hats.
-    usage: /<command> [version]
+    usage: /<command>
+  hats:
+    description: Check information about Hats plugin.
+    usage: /<command>
 
 permissions:
     hats.wear:

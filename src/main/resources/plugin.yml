@@ -1,9 +1,11 @@
 main: com.haralanov.hats.Hats
-version: 3.0.0
+version: 3.1.0
 name: Hats
 author: Beezle
-website: https://api.github.com/repos/AleksandarHaralanov/Hats/releases/latest
+website: https://github.com/AleksandarHaralanov/Hats
 description: Players can wear blocks as hats.
+
+github: https://api.github.com/repos/AleksandarHaralanov/Hats/releases/latest
 
 commands:
   hat:

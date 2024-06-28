@@ -41,7 +41,7 @@ public class HatsCommand implements CommandExecutor {
                         String.format("&bSource: &e%s", source)));
             } else {
                 getLogger().info(String.format("%s v%s by %s", pluginName, currentVersion, pluginAuthor));
-                getLogger().info(String.format("Source: &e%s", source));
+                getLogger().info(String.format("Source: %s", source));
             }
 
         } else {

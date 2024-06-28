@@ -1,5 +1,6 @@
 package com.haralanov.hats;
 
+import com.haralanov.utilities.PdfUtil;
 import com.haralanov.utilities.UpdateUtil;
 
 import org.bukkit.plugin.java.JavaPlugin;
@@ -9,27 +10,29 @@ import static org.bukkit.Bukkit.getLogger;
 
 public class Hats extends JavaPlugin {
 
-    private static String currentVersion;
-    private static String pluginName;
+    private static String NAME;
+    private static String VERSION;
 
     @Override
     public void onEnable() {
         PluginDescriptionFile pdf = this.getDescription();
-        currentVersion = pdf.getVersion();
-        pluginName = pdf.getName();
-        String pluginAuthor = pdf.getAuthors().get(0);
-        String github = pdf.getWebsite();
+        VERSION = pdf.getVersion();
+        NAME = pdf.getName();
+        String AUTHOR = pdf.getAuthors().get(0);
+        String SOURCE = pdf.getWebsite();
+        String GITHUB = PdfUtil.getGithub(NAME);
 
-        getLogger().info(String.format("[%s] v%s Enabled.", pluginName, currentVersion));
+        getLogger().info(String.format("[%s] v%s Enabled.", NAME, VERSION));
 
-        UpdateUtil.checkForUpdates(pluginName, currentVersion, github);
+        UpdateUtil.checkForUpdates(NAME, VERSION, GITHUB);
 
-        getCommand("hat").setExecutor(new HatsCommand(currentVersion, pluginName, pluginAuthor, github));
-        getCommand("hats").setExecutor(new HatsCommand(currentVersion, pluginName, pluginAuthor, github));
+        HatsCommand hatsCommand = new HatsCommand(NAME, VERSION, AUTHOR, SOURCE);
+        getCommand("hat").setExecutor(hatsCommand);
+        getCommand("hats").setExecutor(hatsCommand);
     }
 
     @Override
     public void onDisable() {
-        getLogger().info(String.format("[%s] v%s Disabled.", pluginName, currentVersion));
+        getLogger().info(String.format("[%s] v%s Disabled.", NAME, VERSION));
     }
 }

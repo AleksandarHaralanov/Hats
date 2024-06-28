@@ -1,5 +1,6 @@
 package com.haralanov.hats;
 
+import com.haralanov.utilities.PdfUtil;
 import com.haralanov.utilities.UpdateUtil;
 
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,13 +18,15 @@ public class Hats extends JavaPlugin {
         PluginDescriptionFile pdf = this.getDescription();
         currentVersion = pdf.getVersion();
         pluginName = pdf.getName();
+        String pluginAuthor = pdf.getAuthors().get(0);
+        String github = PdfUtil.getGithub(this);
 
         getLogger().info(String.format("[%s] v%s Enabled.", pluginName, currentVersion));
 
-        UpdateUtil.checkForUpdates(pluginName, currentVersion, "https://api.github.com/repos/AleksandarHaralanov/Hats/releases/latest");
+        UpdateUtil.checkForUpdates(pluginName, currentVersion, github);
 
-        getCommand("hat").setExecutor(new HatsCommand(currentVersion, pluginName));
-        getCommand("hats").setExecutor(new HatsCommand(currentVersion, pluginName));
+        getCommand("hat").setExecutor(new HatsCommand(currentVersion, pluginName, pluginAuthor, github));
+        getCommand("hats").setExecutor(new HatsCommand(currentVersion, pluginName, pluginAuthor, github));
     }
 
     @Override

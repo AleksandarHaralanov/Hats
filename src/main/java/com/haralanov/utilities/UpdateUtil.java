@@ -12,23 +12,29 @@ public class UpdateUtil {
 
     /**
      * Checks for updates by querying a given URL and comparing the current version with the latest available version.
+     * <p><b>Warning:</b> This method only works with GitHub repositories. You will need to modify it if you use something else.</p>
      *
-     * @param pluginName     The name of the plugin, e.g., "Plugin".
-     * @param currentVersion The current version of the plugin, e.g., "1.0.0".
-     * @param apiUrl      The URL to query for the latest release information.
-     *                    E.g., "https://api.github.com/repos/USER/REPO/releases/latest".
+     * @param pluginName     The name of the plugin.
+     * @param currentVersion The current version of the plugin.
+     * @param githubUrl      The URL to query for the latest release information.
+     *                       <p>E.g., 'https://api.github.com/repos/USER/REPO/releases/latest'.</pr>
+     *                       <hr>
+     * <b>Note:</b> Ensure that the version attribute in your 'plugin.yml' uses only digits and dots (e.g., '1.0.0')
+     *                       and does not include prefixes like 'v' or 'ver'. Otherwise, it will indicate that there is
+     *                       a new version, even when there isn't one.
      */
-    public static void checkForUpdates(String pluginName, String currentVersion, String apiUrl) {
+    public static void checkForUpdates(String pluginName, String currentVersion, String githubUrl) {
         currentVersion = "v" + currentVersion;
         HttpURLConnection connection = null;
         try {
-            URL url = new URL(apiUrl);
+            URL url = new URL(githubUrl);
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
 
             int responseCode = connection.getResponseCode();
             if (responseCode != 200) {
                 getLogger().warning(String.format("[%s] Unexpected code: %s", pluginName, responseCode));
+                getLogger().warning(String.format("[%s] Unable to check if plugin has a newer version.", pluginName));
                 return;
             }
 
@@ -42,9 +48,9 @@ public class UpdateUtil {
 
             String responseBody = content.toString();
             String latestVersion = getLatestVersion(responseBody);
-            compareVersions(pluginName, currentVersion, latestVersion, apiUrl);
+            compareVersions(pluginName, currentVersion, latestVersion, githubUrl);
         } catch (IOException e) {
-            getLogger().severe(String.format("[%s] IOException occurred: %s", pluginName, e.getMessage()));
+            getLogger().severe(String.format("[%s] IOException occurred while checking for a new version: %s", pluginName, e.getMessage()));
         } finally {
             if (connection != null) {
                 connection.disconnect();
@@ -76,8 +82,8 @@ public class UpdateUtil {
         }
 
         if (!currentVersion.equalsIgnoreCase(latestVersion)) {
-            getLogger().info(String.format("[%s] New %s available, you are running an OUTDATED %s!", pluginName, latestVersion, currentVersion));
             downloadLink = downloadLink.replace("api.github.com/repos", "github.com");
+            getLogger().info(String.format("[%s] New %s available, you are running an OUTDATED %s!", pluginName, latestVersion, currentVersion));
             getLogger().info(String.format("[%s] Download the latest version from: %s", pluginName, downloadLink));
         } else {
             getLogger().info(String.format("[%s] You are running the latest version.", pluginName));

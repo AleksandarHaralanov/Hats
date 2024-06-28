@@ -13,17 +13,16 @@ import static org.bukkit.Bukkit.getLogger;
 
 public class HatsCommand implements CommandExecutor {
 
-    String currentVersion;
-    String pluginName;
-    String pluginAuthor;
-    String source;
+    String NAME;
+    String VERSION;
+    String AUTHOR;
+    String SOURCE;
 
-    public HatsCommand(String currentVersion, String pluginName, String pluginAuthor, String githubUrl) {
-        this.currentVersion = currentVersion;
-        this.pluginName = pluginName;
-        this.pluginAuthor = pluginAuthor;
-        this.source = githubUrl.replace("api.github.com/repos", "github.com");
-        this.source = this.source.replace("/releases/latest", "");
+    public HatsCommand(String NAME, String VERSION, String AUTHOR, String SOURCE) {
+        this.NAME = NAME;
+        this.VERSION = VERSION;
+        this.AUTHOR = AUTHOR;
+        this.SOURCE = SOURCE;
     }
 
     @Override
@@ -36,12 +35,12 @@ public class HatsCommand implements CommandExecutor {
         if (command.getName().equalsIgnoreCase("hats")) {
             if (player != null) {
                 commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        String.format("&e%s v%s &bby &e%s", pluginName, currentVersion, pluginAuthor)));
+                        String.format("&e%s v%s &bby &e%s", NAME, VERSION, AUTHOR)));
                 commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        String.format("&bSource: &e%s", source)));
+                        String.format("&bSource: &e%s", SOURCE)));
             } else {
-                getLogger().info(String.format("%s v%s by %s", pluginName, currentVersion, pluginAuthor));
-                getLogger().info(String.format("Source: %s", source));
+                getLogger().info(String.format("%s v%s by %s", NAME, VERSION, AUTHOR));
+                getLogger().info(String.format("Source: %s", SOURCE));
             }
 
         } else {

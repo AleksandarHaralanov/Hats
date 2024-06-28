@@ -1,5 +1,5 @@
 main: com.haralanov.hats.Hats
-version: 2.4.0
+version: 3.0.0
 name: Hats
 author: Beezle
 website: https://api.github.com/repos/AleksandarHaralanov/Hats/releases/latest

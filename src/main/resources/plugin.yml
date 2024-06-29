@@ -5,7 +5,7 @@ author: Beezle
 website: https://github.com/AleksandarHaralanov/Hats
 description: Players can wear blocks as hats.
 
-github: https://api.github.com/repos/AleksandarHaralanov/Hats/releases/latest
+apiGithub: https://api.github.com/repos/AleksandarHaralanov/Hats/releases/latest
 
 commands:
   hat:

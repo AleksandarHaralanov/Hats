@@ -10,18 +10,18 @@ import static org.bukkit.Bukkit.getLogger;
 public class PdfUtil {
 
     private static final String YAML = "plugin.yml";
-    private static final String ATTRIBUTE = "github";
+    private static final String ATTRIBUTE = "apiGithub";
 
     /**
-     * Retrieves the GitHub URL from the plugin's YAML configuration file.
-     * <p><b>Warning: </b>Make sure, if you have other attributes/values containing {@code github} text within them, to put the {@code github} attribute as the first instance.</p>
-     * @return The GitHub URL as a string, or {@code null} if the file is not found or an error occurs during reading.
+     * Retrieves the API GitHub URL from the plugin's YAML configuration file.
+     * <p><b>Warning: </b>Make sure, if you have other attributes/values containing {@code apiGithub} text within them, to put the {@code apiGithub} attribute as the first instance.</p>
+     * @return The API GitHub URL as a string, or {@code null} if the file is not found or an error occurs during reading.
      * <p>E.g., 'https://api.github.com/repos/USER/REPO/releases/latest'.</p>
      * <hr>
      * <b>Note:</b> Ensure that the {@code plugin.yml} file is correctly placed in the {@code src/main/resources} directory
      *             and follows the expected format.
      */
-    public static String getGithub(String NAME) {
+    public static String getApiGithub(String NAME) {
         try {
             InputStream inputStream = PdfUtil.class.getClassLoader().getResourceAsStream(YAML);
             if (inputStream == null) {

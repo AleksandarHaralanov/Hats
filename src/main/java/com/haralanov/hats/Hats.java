@@ -20,7 +20,7 @@ public class Hats extends JavaPlugin {
         NAME = pdf.getName();
         String AUTHOR = pdf.getAuthors().get(0);
         String SOURCE = pdf.getWebsite();
-        String GITHUB = PdfUtil.getGithub(NAME);
+        String GITHUB = PdfUtil.getApiGithub(NAME);
 
         getLogger().info(String.format("[%s] v%s Enabled.", NAME, VERSION));
 

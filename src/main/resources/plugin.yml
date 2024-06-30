@@ -1,5 +1,5 @@
 main: com.haralanov.hats.Hats
-version: 3.1.0
+version: 3.1.1
 name: Hats
 author: Beezle
 website: https://github.com/AleksandarHaralanov/Hats
@@ -10,8 +10,6 @@ apiGithub: https://api.github.com/repos/AleksandarHaralanov/Hats/releases/latest
 commands:
   hat:
     description: Set the block in hand as a hat.
-    permission: hats.wear
-    permission-message: You do not have permissions to wear hats.
     usage: /<command>
   hats:
     description: Check information about Hats plugin.

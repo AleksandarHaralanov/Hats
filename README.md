@@ -11,8 +11,10 @@ Allows blocks to be worn as hats.
 - Utilizes a custom library developed to check for the latest release (as of version 2.2.0). It verifies if a newer version is available on the GitHub repository and provides a download link in the console if an update exists.
 
 ## Usage
-By default, only OPs have permissions.<br>Use PermissionsEx or similar plugins to grant groups the permission, enabling the command.
+By default, only OPs have permission.
+
+Use PermissionsEx or similar plugins to grant groups the permission, enabling the command.
 - Commands:
-  - `/hat`
-  - `/hat version`
+  - `/hat` - Requires permission - Wear the block held in your hand as your hat.
+  - `/hats` - Does not require permission - Prints author, version, and a link to the GitHub repository of the Hats plugin.
 - Permission: `hats.wear`

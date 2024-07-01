@@ -51,7 +51,7 @@ public class HatsCommand implements CommandExecutor {
 
             if (!(commandSender.hasPermission("hats.wear") || commandSender.isOp())) {
                 commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        "&cYou do not have permissions to wear hats."));
+                        "&cYou do not have permission to wear hats."));
             } else {
                 this.hatWear(player, player.getItemInHand());
             }

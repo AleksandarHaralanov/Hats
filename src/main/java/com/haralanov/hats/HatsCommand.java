@@ -34,33 +34,31 @@ public class HatsCommand implements CommandExecutor {
 
         if (command.getName().equalsIgnoreCase("hats")) {
             if (player != null) {
-                commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
                         String.format("&e%s v%s &bby &e%s", NAME, VERSION, AUTHOR)));
-                commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
                         String.format("&bSource: &e%s", SOURCE)));
             } else {
                 getLogger().info(String.format("%s v%s by %s", NAME, VERSION, AUTHOR));
                 getLogger().info(String.format("Source: %s", SOURCE));
             }
-
         } else {
-            if (!(commandSender instanceof Player)) {
-                getLogger().info("Terminals cannot wear hats.");
-                return true;
-            }
-
-            if (!(commandSender.hasPermission("hats.wear") || commandSender.isOp())) {
-                commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        "&cYou do not have permission to wear hats."));
+            if (player != null) {
+                if (!(player.hasPermission("hats.wear") || player.isOp())) {
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                            "&cYou do not have permission to wear hats."));
+                } else {
+                    wearHat(player, player.getItemInHand());
+                }
             } else {
-                this.hatWear(player, player.getItemInHand());
+                getLogger().info("Terminals cannot wear hats.");
             }
-
         }
+
         return true;
     }
 
-    public void hatWear(Player player, ItemStack item) {
+    private void wearHat(Player player, ItemStack item) {
         if (item.getType() == Material.AIR) {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&',
                     "&cYou are not holding anything."));

@@ -27,10 +27,7 @@ public class HatsCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender commandSender, org.bukkit.command.Command command, String s, String[] strings) {
-        Player player = null;
-        if (commandSender instanceof Player) {
-            player = (Player) commandSender;
-        }
+        Player player = (commandSender instanceof Player) ? (Player) commandSender : null;
 
         if (command.getName().equalsIgnoreCase("hats")) {
             if (player != null) {

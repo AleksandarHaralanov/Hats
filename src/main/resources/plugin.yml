@@ -5,8 +5,6 @@ author: Beezle
 website: https://github.com/AleksandarHaralanov/Hats
 description: Players can wear blocks as hats.
 
-apiGithub: https://api.github.com/repos/AleksandarHaralanov/Hats/releases/latest
-
 commands:
   hat:
     description: Set the block in hand as a hat.

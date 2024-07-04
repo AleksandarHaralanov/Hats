@@ -13,10 +13,10 @@ import static org.bukkit.Bukkit.getLogger;
 
 public class HatsCommand implements CommandExecutor {
 
-    String NAME;
-    String VERSION;
-    String AUTHOR;
-    String SOURCE;
+    private final String NAME;
+    private final String VERSION;
+    private final String AUTHOR;
+    private final String SOURCE;
 
     public HatsCommand(String NAME, String VERSION, String AUTHOR, String SOURCE) {
         this.NAME = NAME;

@@ -11,22 +11,24 @@ public class Hats extends JavaPlugin {
 
     private static String NAME;
     private static String VERSION;
+    private static String AUTHOR;
+    private static String SOURCE;
 
     @Override
     public void onEnable() {
         PluginDescriptionFile pdf = this.getDescription();
         VERSION = pdf.getVersion();
         NAME = pdf.getName();
-        String AUTHOR = pdf.getAuthors().get(0);
-        String SOURCE = pdf.getWebsite();
-
-        getLogger().info(String.format("[%s] v%s Enabled.", NAME, VERSION));
+        AUTHOR = pdf.getAuthors().get(0);
+        SOURCE = pdf.getWebsite();
 
         UpdateUtil.checkForUpdates(NAME, VERSION, "https://api.github.com/repos/AleksandarHaralanov/Hats/releases/latest");
 
         HatsCommand hatsCommand = new HatsCommand(NAME, VERSION, AUTHOR, SOURCE);
         getCommand("hat").setExecutor(hatsCommand);
         getCommand("hats").setExecutor(hatsCommand);
+
+        getLogger().info(String.format("[%s] v%s Enabled.", NAME, VERSION));
     }
 
     @Override

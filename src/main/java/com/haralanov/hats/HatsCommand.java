@@ -27,7 +27,7 @@ public class HatsCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender commandSender, org.bukkit.command.Command command, String s, String[] strings) {
-        Player player = (commandSender instanceof Player) ? (Player) commandSender : null;
+        final Player player = (commandSender instanceof Player) ? (Player) commandSender : null;
 
         if (command.getName().equalsIgnoreCase("hats")) {
             if (player != null) {
@@ -60,7 +60,7 @@ public class HatsCommand implements CommandExecutor {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&',
                     "&cYou are not holding anything."));
         } else {
-            int itemId = item.getTypeId();
+            final int itemId = item.getTypeId();
 
             if (!(itemId >= 1 && itemId <= 96)) {
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&',
@@ -69,10 +69,10 @@ public class HatsCommand implements CommandExecutor {
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&',
                         String.format("&e%s &cis already worn as a hat.", item.getType().name())));
             } else {
-                PlayerInventory inventory = player.getInventory();
-                ItemStack hat = new ItemStack(item.getType(), item.getAmount() < 0 ? item.getAmount() : 1, item.getDurability());
-                MaterialData data = item.getData();
-                ItemStack helmet = inventory.getHelmet();
+                final PlayerInventory inventory = player.getInventory();
+                final ItemStack hat = new ItemStack(item.getType(), item.getAmount() < 0 ? item.getAmount() : 1, item.getDurability());
+                final MaterialData data = item.getData();
+                final ItemStack helmet = inventory.getHelmet();
 
                 if (data != null) {
                     hat.setData(item.getData());
@@ -115,7 +115,8 @@ public class HatsCommand implements CommandExecutor {
     }
 
     private void removeExact(PlayerInventory inventory, ItemStack item) {
-        ItemStack[] contents = inventory.getContents();
+        final ItemStack[] contents = inventory.getContents();
+
         for (int i = 0; i < contents.length; i++) {
             if (contents[i] != null && contents[i].equals(item)) {
                 if (contents[i].getAmount() > 1) {
@@ -123,6 +124,7 @@ public class HatsCommand implements CommandExecutor {
                 } else {
                     inventory.setItem(i, null);
                 }
+
                 break;
             }
         }

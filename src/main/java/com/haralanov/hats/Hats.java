@@ -16,7 +16,7 @@ public class Hats extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        PluginDescriptionFile pdf = this.getDescription();
+        final PluginDescriptionFile pdf = this.getDescription();
         VERSION = pdf.getVersion();
         NAME = pdf.getName();
         AUTHOR = pdf.getAuthors().get(0);
@@ -24,7 +24,7 @@ public class Hats extends JavaPlugin {
 
         UpdateUtil.checkForUpdates(NAME, VERSION, "https://api.github.com/repos/AleksandarHaralanov/Hats/releases/latest");
 
-        HatsCommand hatsCommand = new HatsCommand(NAME, VERSION, AUTHOR, SOURCE);
+        final HatsCommand hatsCommand = new HatsCommand(NAME, VERSION, AUTHOR, SOURCE);
         getCommand("hat").setExecutor(hatsCommand);
         getCommand("hats").setExecutor(hatsCommand);
 

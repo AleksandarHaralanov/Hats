@@ -2,6 +2,7 @@ package com.haralanov.hats;
 
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.ItemStack;
@@ -18,7 +19,7 @@ public class HatsCommand implements CommandExecutor {
     private final String AUTHOR;
     private final String SOURCE;
 
-    public HatsCommand(String NAME, String VERSION, String AUTHOR, String SOURCE) {
+    public HatsCommand(final String NAME, final String VERSION, final String AUTHOR, final String SOURCE) {
         this.NAME = NAME;
         this.VERSION = VERSION;
         this.AUTHOR = AUTHOR;
@@ -26,7 +27,7 @@ public class HatsCommand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender commandSender, org.bukkit.command.Command command, String s, String[] strings) {
+    public boolean onCommand(final CommandSender commandSender, final Command command, final String s, final String[] strings) {
         final Player player = (commandSender instanceof Player) ? (Player) commandSender : null;
 
         if (command.getName().equalsIgnoreCase("hats")) {
@@ -55,7 +56,7 @@ public class HatsCommand implements CommandExecutor {
         return true;
     }
 
-    private void wearHat(Player player, ItemStack item) {
+    private void wearHat(final Player player, final ItemStack item) {
         if (item.getType() == Material.AIR) {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&',
                     "&cYou are not holding anything."));
@@ -114,7 +115,7 @@ public class HatsCommand implements CommandExecutor {
         }
     }
 
-    private void removeExact(PlayerInventory inventory, ItemStack item) {
+    private void removeExact(final PlayerInventory inventory, final ItemStack item) {
         final ItemStack[] contents = inventory.getContents();
 
         for (int i = 0; i < contents.length; i++) {

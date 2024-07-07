@@ -56,7 +56,7 @@ public class HatsCommand implements CommandExecutor {
         return true;
     }
 
-    private void wearHat(final Player player, final ItemStack item) {
+    private static void wearHat(final Player player, final ItemStack item) {
         if (item.getType() == Material.AIR) {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&',
                     "&cYou are not holding anything."));
@@ -115,7 +115,7 @@ public class HatsCommand implements CommandExecutor {
         }
     }
 
-    private void removeExact(final PlayerInventory inventory, final ItemStack item) {
+    private static void removeExact(final PlayerInventory inventory, final ItemStack item) {
         final ItemStack[] contents = inventory.getContents();
 
         for (int i = 0; i < contents.length; i++) {

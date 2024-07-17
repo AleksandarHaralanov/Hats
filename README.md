@@ -11,7 +11,7 @@
 - Checks for a newer version of the plugin and provides a download link in the console if available.
 
 ## Download
-- **Download the latest release of Hats [here](github.com/AleksandarHaralanov/Hats/releases/latest).**
+- **Download the latest release of Hats [here](https://github.com/AleksandarHaralanov/Hats/releases/latest).**
 
 ## Requirements
 - Server must be running a [Poseidon](https://github.com/RhysB/Project-Poseidon) API build from `June 28th, 2024` or later.

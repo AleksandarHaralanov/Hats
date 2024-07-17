@@ -8,7 +8,7 @@
 - Wear the block in hand as a hat. [(ID 1 - 96)](https://imgur.com/RIVgSD7)
 - **Condition checks for:** No block held in hand, Item cannot be worn as a hat, Held block is already worn as a hat, Swap between new and old hat, Dropping the old hat on the ground when a new one is equipped with a full inventory.
 - Ensures only one unit of a block is worn in the helmet slot, preventing players from using it as an additional inventory slot.
-- Checks for a newer version of the plugin on the GitHub repository and displays a download link in the console if an update is available.
+- Checks for a newer version of the plugin and displays a download link in the console if an update is available.
 
 ## Download
 - **Download the latest release of Hats [here](github.com/AleksandarHaralanov/Hats/releases/latest).**

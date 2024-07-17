@@ -26,7 +26,6 @@ public class Hats extends JavaPlugin {
 
         final HatsCommand hatsCommand = new HatsCommand(NAME, VERSION, AUTHOR, SOURCE);
         getCommand("hat").setExecutor(hatsCommand);
-        getCommand("hats").setExecutor(hatsCommand);
 
         getLogger().info(String.format("[%s] v%s Enabled.", NAME, VERSION));
     }

@@ -15,6 +15,6 @@ By default, only OPs have permission.
 
 Use PermissionsEx or similar plugins to grant groups the permission, enabling the command.
 - Commands:
-  - `/hat` - **Requires permission** - Wear the block held in your hand as your hat.
+  - `/hat` - **Requires permission** - Wear the block in hand as a hat.
   - `/hat [v | ver | version]` - **Doesn't require permission** - Prints author, version, and a link to this repository.
 - Permission: `hats.wear`

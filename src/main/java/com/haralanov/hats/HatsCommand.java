@@ -1,5 +1,6 @@
 package com.haralanov.hats;
 
+import org.bukkit.DyeColor;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.Command;
@@ -7,8 +8,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.Material;
-import org.bukkit.material.MaterialData;
 import org.bukkit.ChatColor;
+import org.bukkit.material.Wool;
 
 import static org.bukkit.Bukkit.getLogger;
 
@@ -27,29 +28,41 @@ public class HatsCommand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(final CommandSender commandSender, final Command command, final String s, final String[] strings) {
-        final Player player = (commandSender instanceof Player) ? (Player) commandSender : null;
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        final Player player = (sender instanceof Player) ? (Player) sender : null;
 
-        if (command.getName().equalsIgnoreCase("hats")) {
-            if (player != null) {
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        String.format("&e%s v%s &bby &e%s", NAME, VERSION, AUTHOR)));
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        String.format("&bSource: &e%s", SOURCE)));
-            } else {
-                getLogger().info(String.format("%s v%s by %s", NAME, VERSION, AUTHOR));
-                getLogger().info(String.format("Source: %s", SOURCE));
-            }
-        } else {
-            if (player != null) {
-                if (!(player.hasPermission("hats.wear") || player.isOp())) {
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                            "&cYou do not have permission to wear hats."));
+        if (command.getName().equalsIgnoreCase("hat")) {
+            if (args.length == 0) {
+                if (player instanceof Player) {
+                    if (!(player.hasPermission("hats.wear") || player.isOp())) {
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                                "&cYou don't have permission to wear hats."));
+                    } else {
+                        wearHat(player, player.getItemInHand());
+                    }
                 } else {
-                    wearHat(player, player.getItemInHand());
+                    getLogger().info("You must be in-game to run this command.");
+                }
+            } else if (args.length == 1 &&
+                    (args[0].equalsIgnoreCase("v") ||
+                    args[0].equalsIgnoreCase("ver") ||
+                    args[0].equalsIgnoreCase("version"))) {
+                if (player instanceof Player) {
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                            String.format("&e%s v%s &7by &e%s", NAME, VERSION, AUTHOR)));
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                            String.format("&7Source: &e%s", SOURCE)));
+                } else {
+                    getLogger().info(String.format("%s v%s by %s", NAME, VERSION, AUTHOR));
+                    getLogger().info(String.format("Source: %s", SOURCE));
                 }
             } else {
-                getLogger().info("Terminals cannot wear hats.");
+                if (player instanceof Player) {
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                            "&cInvalid usage. Use &e/hat &cor &e/hat v&c."));
+                } else {
+                    getLogger().info("Invalid usage. Use '/hat' or '/hat v'.");
+                }
             }
         }
 
@@ -59,75 +72,77 @@ public class HatsCommand implements CommandExecutor {
     private static void wearHat(final Player player, final ItemStack item) {
         if (item.getType() == Material.AIR) {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                    "&cYou are not holding anything."));
+                    "&cYou aren't holding anything."));
+            return;
+        }
+
+        final String itemName = normalizeName(item);
+        if (item.getTypeId() < 1 || item.getTypeId() > 96) {
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                    String.format("&e%s &ccan't be worn as a hat.", itemName)));
+            return;
+        }
+
+        if (player.getInventory().getHelmet().getType() == item.getType()) {
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                    String.format("&e%s &cis already your hat.", itemName)));
+            return;
+        }
+
+        final ItemStack hat = new ItemStack(item.getType(), 1, item.getDurability());
+        if (item.getData() != null) {
+            hat.setData(item.getData());
+        }
+
+        if (player.getInventory().getHelmet().getType() == Material.AIR) {
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                    String.format("&e%s &7worn as a hat.", itemName)));
         } else {
-            final int itemId = item.getTypeId();
+            final String helmetName = normalizeName(player.getInventory().getHelmet());
 
-            if (!(itemId >= 1 && itemId <= 96)) {
+            if (player.getInventory().firstEmpty() != -1) {
+                player.getInventory().addItem(player.getInventory().getHelmet());
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        String.format("&e%s &ccannot be worn as a hat.", item.getType().name())));
-            } else if (player.getInventory().getHelmet().getType() == item.getType()) {
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        String.format("&e%s &cis already worn as a hat.", item.getType().name())));
+                        String.format("&e%s &7replaced with &e%s &7as the new hat.", helmetName, itemName)));
             } else {
-                final PlayerInventory inventory = player.getInventory();
-                final ItemStack hat = new ItemStack(item.getType(), item.getAmount() < 0 ? item.getAmount() : 1, item.getDurability());
-                final MaterialData data = item.getData();
-                final ItemStack helmet = inventory.getHelmet();
-
-                if (data != null) {
-                    hat.setData(item.getData());
-                }
-
-                if (helmet.getType() == Material.AIR) {
-                    inventory.setHelmet(hat);
-                    if (item.getAmount() > 1) {
-                        item.setAmount(item.getAmount() - 1);
-                    } else {
-                        removeExact(inventory, item);
-                    }
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                            String.format("&e%s &bworn as a hat.", item.getType().name())));
-                } else if (inventory.firstEmpty() != -1) {
-                    inventory.addItem(helmet);
-                    inventory.setHelmet(hat);
-                    if (item.getAmount() > 1) {
-                        item.setAmount(item.getAmount() - 1);
-                    } else {
-                        removeExact(inventory, item);
-                    }
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                            String.format("&e%s &bhat swapped for &e%s &bas the new hat.", helmet.getType().name(), item.getType().name())));
-                } else {
-                    player.getWorld().dropItemNaturally(player.getLocation(), helmet);
-                    inventory.setHelmet(hat);
-                    if (item.getAmount() > 1) {
-                        item.setAmount(item.getAmount() - 1);
-                    } else {
-                        removeExact(inventory, item);
-                    }
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                            String.format("&cNo pocket space, dropped old &e%s &chat to the ground.", helmet.getType().name())));
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                            String.format("&e%s &bworn as the new hat.", item.getType().name())));
-                }
+                player.getWorld().dropItemNaturally(player.getLocation(), player.getInventory().getHelmet());
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                        String.format("&cDropped &e%s &chat due to no pocket space.", helmetName)));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                        String.format("&e%s &7worn as the new hat.", itemName)));
             }
         }
+
+        player.getInventory().setHelmet(hat);
+        player.getInventory().removeItem(hat);
     }
 
-    private static void removeExact(final PlayerInventory inventory, final ItemStack item) {
-        final ItemStack[] contents = inventory.getContents();
+    private static String normalizeName(ItemStack item) {
+        Material itemType = item.getType();
+        String itemName = itemType.name().toLowerCase().replace('_', ' ');
+        StringBuilder normalizedItemName = new StringBuilder();
 
-        for (int i = 0; i < contents.length; i++) {
-            if (contents[i] != null && contents[i].equals(item)) {
-                if (contents[i].getAmount() > 1) {
-                    contents[i].setAmount(contents[i].getAmount() - 1);
-                } else {
-                    inventory.setItem(i, null);
-                }
-
-                break;
+        if (itemType == Material.WOOL) {
+            Wool wool = (Wool) item.getData();
+            String colorName = wool.getColor().name().toLowerCase().replace('_', ' ');
+            String[] colors = colorName.split(" ");
+            for (String color : colors) {
+                normalizedItemName
+                        .append(Character.toUpperCase(color.charAt(0)))
+                        .append(color.substring(1))
+                        .append(" ");
+            }
+            normalizedItemName.append("Wool");
+        } else {
+            String[] words = itemName.split(" ");
+            for (String word : words) {
+                normalizedItemName
+                        .append(Character.toUpperCase(word.charAt(0)))
+                        .append(word.substring(1))
+                        .append(" ");
             }
         }
+
+        return normalizedItemName.toString().trim();
     }
 }

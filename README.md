@@ -1,14 +1,21 @@
 # Hats
-Allows blocks to be worn as hats.
+![Hats.png](Hats.png)
 
-<b>Download latest release [here](https://github.com/AleksandarHaralanov/Hats/releases/latest).</b>
-- Compiled on Adoptium JDK 8 with [Poseidon](https://github.com/RhysB/Project-Poseidon), fork of CB1060.
+## What's Hats?
+**Hats** is a Minecraft plugin designed for servers running version b1.7.3, enabling players to wear blocks in the helmet slot as hats through the use of an in-game command.
 
 ## Features
 - Wear the block in hand as a hat. [(ID 1 - 96)](https://imgur.com/RIVgSD7)
-  - Implements checks for various conditions such as: No block held in hand, item cannot be worn as a hat, held block is already worn as a hat, swap of new and old hat, and dropping the old hat on the ground when a new one is equipped with a full inventory.
-  - Enforces checks to ensure only one unit of a block is worn in the helmet slot, preventing players from using it as an additional inventory slot.
-- It checks for a newer version of the plugin on the GitHub repository and displays a download link in the console if an update is available.
+- **Condition checks for:** No block held in hand, Item cannot be worn as a hat, Held block is already worn as a hat, Swap between new and old hat, Dropping the old hat on the ground when a new one is equipped with a full inventory.
+- Ensures only one unit of a block is worn in the helmet slot, preventing players from using it as an additional inventory slot.
+- Checks for a newer version of the plugin on the GitHub repository and displays a download link in the console if an update is available.
+
+## Download
+- **Download the latest release of Hats [here](github.com/AleksandarHaralanov/Hats/releases/latest).**
+
+## Requirements
+- Server must be running a [Poseidon](https://github.com/RhysB/Project-Poseidon) API build from `June 28th, 2024` or later.
+  - [Poseidon](https://github.com/RhysB/Project-Poseidon) downloads can be found [here](https://jenkins.glass-launcher.net/job/Project-Poseidon/).
 
 ## Usage
 By default, only OPs have permission.

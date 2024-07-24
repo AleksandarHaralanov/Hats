@@ -1,5 +1,5 @@
 # Hats
-![Hats.png](Hats.png)
+![Hats.png](img/Hats.png)
 
 ## What's Hats?
 **Hats** is a Minecraft plugin designed for servers running version b1.7.3, enabling players to wear blocks in the helmet slot as hats through the use of an in-game command.

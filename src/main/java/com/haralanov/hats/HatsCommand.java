@@ -1,67 +1,49 @@
 package com.haralanov.hats;
 
-import org.bukkit.DyeColor;
+import com.haralanov.hats.utils.AboutUtil;
+import com.haralanov.hats.utils.ColorUtil;
+
+import org.bukkit.Material;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.Material;
-import org.bukkit.ChatColor;
 import org.bukkit.material.Wool;
+import org.bukkit.plugin.java.JavaPlugin;
 
-import static org.bukkit.Bukkit.getLogger;
+import static org.bukkit.Bukkit.getServer;
 
 public class HatsCommand implements CommandExecutor {
 
-    private final String NAME;
-    private final String VERSION;
-    private final String AUTHOR;
-    private final String SOURCE;
+    private final JavaPlugin plugin;
 
-    public HatsCommand(final String NAME, final String VERSION, final String AUTHOR, final String SOURCE) {
-        this.NAME = NAME;
-        this.VERSION = VERSION;
-        this.AUTHOR = AUTHOR;
-        this.SOURCE = SOURCE;
+    public HatsCommand(JavaPlugin plugin) {
+        this.plugin = plugin;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        final Player player = (sender instanceof Player) ? (Player) sender : null;
+        Player player = (sender instanceof Player) ? (Player) sender : null;
 
         if (command.getName().equalsIgnoreCase("hat")) {
             if (args.length == 0) {
-                if (player instanceof Player) {
+                if (player != null) {
                     if (!(player.hasPermission("hats.wear") || player.isOp())) {
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                                "&cYou don't have permission to wear hats."));
+                        player.sendMessage(ColorUtil.translate("&cYou don't have permission to wear hats."));
                     } else {
                         wearHat(player, player.getItemInHand());
                     }
                 } else {
-                    getLogger().info("You must be in-game to run this command.");
+                    getServer().getLogger().info("You must be in-game to run this command.");
                 }
-            } else if (args.length == 1 &&
-                    (args[0].equalsIgnoreCase("v") ||
-                    args[0].equalsIgnoreCase("ver") ||
-                    args[0].equalsIgnoreCase("version"))) {
-                if (player instanceof Player) {
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                            String.format("&e%s v%s &7by &e%s", NAME, VERSION, AUTHOR)));
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                            String.format("&7Source: &e%s", SOURCE)));
-                } else {
-                    getLogger().info(String.format("%s v%s by %s", NAME, VERSION, AUTHOR));
-                    getLogger().info(String.format("Source: %s", SOURCE));
-                }
+            } else if (args.length == 1 && args[0].equalsIgnoreCase("about")) {
+                AboutUtil.about(player, plugin);
             } else {
-                if (player instanceof Player) {
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                            "&cInvalid usage. Use &e/hat &cor &e/hat v&c."));
+                if (player != null) {
+                    player.sendMessage(ColorUtil.translate("&cInvalid usage. Use &e/hat &cor &e/hat about&c."));
                 } else {
-                    getLogger().info("Invalid usage. Use '/hat' or '/hat v'.");
+                    getServer().getLogger().info("Invalid usage. Use '/hat' or '/hat about'.");
                 }
             }
         }
@@ -69,47 +51,40 @@ public class HatsCommand implements CommandExecutor {
         return true;
     }
 
-    private static void wearHat(final Player player, final ItemStack item) {
+    private static void wearHat(Player player, ItemStack item) {
         if (item.getType() == Material.AIR) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                    "&cYou aren't holding anything."));
+            player.sendMessage(ColorUtil.translate("&cYou aren't holding anything."));
             return;
         }
 
-        final String itemName = normalizeName(item);
+        String itemName = normalizeName(item);
         if (item.getTypeId() < 1 || item.getTypeId() > 96) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                    String.format("&e%s &ccan't be worn as a hat.", itemName)));
+            player.sendMessage(ColorUtil.translate(String.format("&e%s &ccan't be worn as a hat.", itemName)));
             return;
         }
 
         if (player.getInventory().getHelmet().getType() == item.getType()) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                    String.format("&e%s &cis already your hat.", itemName)));
+            player.sendMessage(ColorUtil.translate(String.format("&e%s &cis already your hat.", itemName)));
             return;
         }
 
-        final ItemStack hat = new ItemStack(item.getType(), 1, item.getDurability());
+        ItemStack hat = new ItemStack(item.getType(), 1, item.getDurability());
         if (item.getData() != null) {
             hat.setData(item.getData());
         }
 
         if (player.getInventory().getHelmet().getType() == Material.AIR) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                    String.format("&e%s &7worn as a hat.", itemName)));
+            player.sendMessage(ColorUtil.translate(String.format("&e%s &7worn as a hat.", itemName)));
         } else {
-            final String helmetName = normalizeName(player.getInventory().getHelmet());
+            String helmetName = normalizeName(player.getInventory().getHelmet());
 
             if (player.getInventory().firstEmpty() != -1) {
                 player.getInventory().addItem(player.getInventory().getHelmet());
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        String.format("&e%s &7replaced with &e%s &7as the new hat.", helmetName, itemName)));
+                player.sendMessage(ColorUtil.translate(String.format("&e%s &7replaced with &e%s &7as the new hat.", helmetName, itemName)));
             } else {
                 player.getWorld().dropItemNaturally(player.getLocation(), player.getInventory().getHelmet());
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        String.format("&cDropped &e%s &chat due to no pocket space.", helmetName)));
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        String.format("&e%s &7worn as the new hat.", itemName)));
+                player.sendMessage(ColorUtil.translate(String.format("&cDropped &e%s &chat due to no pocket space.", helmetName)));
+                player.sendMessage(ColorUtil.translate(String.format("&e%s &7worn as the new hat.", itemName)));
             }
         }
 

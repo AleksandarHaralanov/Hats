@@ -1,3 +1,5 @@
+import java.util.regex.Matcher
+
 plugins {
     id 'java'
 }
@@ -7,28 +9,47 @@ repositories {
 }
 
 dependencies {
-    implementation files('libs/poseidon.jar')
+    implementation files("libs/poseidon.jar")
 }
 
-def yml = file('src/main/resources/plugin.yml')
-def name = 'Plugin'
-def version = '1.0.0'
+File ymlFile = file('src/main/resources/plugin.yml') as File
 
-if (yml) {
-    def ymlContents = yml.text
-    def nameMatcher = ymlContents =~ /name:\s*(\S+)/
-    def versionMatcher = ymlContents =~ /version:\s*([\d.]+)/
+if (!ymlFile.exists()) {
+    throw new GradleException("The 'plugin.yml' file does not exist in 'src/main/resources'!")
+}
 
-    if (nameMatcher) {
-        name = nameMatcher[0][1]
-    }
+String pluginVersion
+String pluginName
+String ymlText = ymlFile.text
 
-    if (versionMatcher) {
-        version = versionMatcher[0][1]
-    }
+Matcher mainMatcher = (ymlText =~ /main:\s*(\S+)/)
+Matcher versionMatcher = (ymlText =~ /version:\s*(\S+)/)
+Matcher nameMatcher = (ymlText =~ /name:\s*(\S+)/)
+
+if (!mainMatcher.find()) {
+    throw new GradleException("The 'main' attribute wasn't found in the 'plugin.yml' file!")
+}
+
+if (versionMatcher.find()) {
+    pluginVersion = versionMatcher.group(1)
+} else {
+    throw new GradleException("The 'version' attribute wasn't found in the 'plugin.yml' file!")
+}
+
+if (nameMatcher.find()) {
+    pluginName = nameMatcher.group(1)
+} else {
+    throw new GradleException("The 'name' attribute wasn't found in the 'plugin.yml' file!")
 }
 
 jar {
-    archiveBaseName.set(name)
-    archiveVersion.set(version)
+    manifest {
+        attributes(
+                'Implementation-Title': pluginName,
+                'Implementation-Version': pluginVersion
+        )
+    }
+
+    archiveVersion.set(pluginVersion)
+    archiveBaseName.set(pluginName)
 }

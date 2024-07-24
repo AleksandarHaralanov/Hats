@@ -14,8 +14,7 @@
 - **Download the latest release of Hats [here](https://github.com/AleksandarHaralanov/Hats/releases/latest).**
 
 ## Requirements
-- Server must be running a [Poseidon](https://github.com/RhysB/Project-Poseidon) API build from `June 28th, 2024` or later.
-  - [Poseidon](https://github.com/RhysB/Project-Poseidon) downloads can be found [here](https://jenkins.glass-launcher.net/job/Project-Poseidon/).
+- Your server must be running one of the following APIs: CB1060, CB1092, [Poseidon](https://github.com/RhysB/Project-Poseidon) or [Uberbukkit](https://github.com/Moresteck/Project-Poseidon-Uberbukkit).
 
 ## Usage
 By default, only OPs have permission.
@@ -23,5 +22,5 @@ By default, only OPs have permission.
 Use PermissionsEx or similar plugins to grant groups the permission, enabling the command.
 - Commands:
   - `/hat` - **Requires permission** - Wear the block in hand as a hat.
-  - `/hat [v | ver | version]` - **Doesn't require permission** - Prints author, version, and a link to this repository.
+  - `/hat about` - **Doesn't require permission** - Prints the plugin's name, version, description, website and author.
 - Permission: `hats.wear`

@@ -14,7 +14,7 @@
 - **Download the latest release of Hats [here](https://github.com/AleksandarHaralanov/Hats/releases/latest).**
 
 ## Requirements
-- Your server must be running one of the following APIs: CB1060-CB1092, [Project Poseidon](https://github.com/RhysB/Project-Poseidon) or [UberBukkit](https://github.com/Moresteck/Project-Poseidon-Uberbukkit).
+Your server must be running one of the following APIs: CB1060-CB1092, [Project Poseidon](https://github.com/RhysB/Project-Poseidon) or [UberBukkit](https://github.com/Moresteck/Project-Poseidon-Uberbukkit).
 
 ## Usage
 By default, only OPs have permission.

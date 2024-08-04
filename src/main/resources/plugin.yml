@@ -1,5 +1,5 @@
 main: com.haralanov.hats.Hats
-version: 4.0.0
+version: 4.1.0-rc
 name: Hats
 author: Beezle
 website: github.com/AleksandarHaralanov/Hats
@@ -7,10 +7,28 @@ description: Players can wear blocks as hats.
 
 commands:
   hat:
-    description: Wear the block in hand as a hat.
-    usage: /<command> [about]
+    description: Wear blocks as a hat, toggle hat light, reload config.
+    usage: /hat [about | light | reload]
 
 permissions:
-    hats.wear:
-      description: Allows the player to wear blocks as hats.
-      default: op
+  hats.*:
+    children:
+      hats.wear: true
+      hats.light: true
+      hats.modify: true
+    default: op
+  hats.perks:
+    children:
+      hats.wear: true
+      hats.light: true
+      hats.modify: false
+    default: op
+  hats.wear:
+    description: Allows the player to wear blocks as hats.
+    default: op
+  hats.light:
+    description: Allows specific hats to emit light and be toggled by the player when worn.
+    default: op
+  hats.modify:
+    description: Allows the player to reload the configuration file.
+    default: op

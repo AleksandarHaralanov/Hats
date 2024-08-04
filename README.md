@@ -38,13 +38,20 @@ Use PermissionsEx or similar plugins to grant groups the permission, enabling th
 ### Configuration
 Upon initial startup, the plugin automatically generates a configuration file located at `plugins/Hats/config.yml`. This file allows you to manage various features.
 
-Default configuration:
+**Default configuration file:**
 ```
 hat-light:
-  enabled: true
-  wider: false
-  source: [10, 11, 50, 51, 89, 90, 91]
-  players: []
+    enabled: true
+    wider: false
+    source:
+    - 10
+    - 11
+    - 50
+    - 51
+    - 89
+    - 90
+    - 91
+    players: []
 ```
 
 - `hat-light.enabled` - Enables or disables the plugin's hat light emission feature.

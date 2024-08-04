@@ -1,7 +1,7 @@
 hat-light:
-  enabled: true
-  wider: false
-  source:
+    enabled: true
+    wider: false
+    source:
     - 10
     - 11
     - 50
@@ -9,4 +9,4 @@ hat-light:
     - 89
     - 90
     - 91
-  players: []
+    players: []

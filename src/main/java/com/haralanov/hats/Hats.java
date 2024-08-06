@@ -23,8 +23,7 @@ public class Hats extends JavaPlugin {
     @Override
     public void onEnable() {
         UpdateUtil.checkForUpdates(getDescription().getName(), getDescription().getVersion(),
-                "https://api.github.com/repos/AleksandarHaralanov/Hats/releases/latest"
-        );
+                "https://api.github.com/repos/AleksandarHaralanov/Hats/releases/latest");
 
         plugin = this;
         config = new ConfigUtil(new File(getDataFolder(), "config.yml"), this);

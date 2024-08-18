@@ -1,5 +1,6 @@
-package com.haralanov.hats;
+package io.github.aleksandarharalanov.hats.handler;
 
+import io.github.aleksandarharalanov.hats.Hats;
 import net.minecraft.server.EnumSkyBlock;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -14,20 +15,20 @@ import static org.bukkit.Bukkit.getServer;
 
 public class LightHandler {
 
-    public static final HashMap<Player, Block> playerBlocks = new HashMap<>();
-    public static final HashMap<String, HashMap<Location, Integer>> oldBlocks = new HashMap<>();
-    public static final ArrayList<String> toggle = new ArrayList<>();
+    private static final ArrayList<String> playerLight = new ArrayList<>();
+    private static final HashMap<Player, Block> playerBlocks = new HashMap<>();
+    private static final HashMap<String, HashMap<Location, Integer>> oldPlayerBlocks = new HashMap<>();
 
     public static void lightUp(int x, int y, int z, CraftWorld world, Player player) {
-        HashMap<Location, Integer> playerBlocks = oldBlocks.get(player.getName());
-        int radius = 15 / (Hats.getConfig().getBoolean("hat-light.wider", false) ? 3 : 5);
+        HashMap<Location, Integer> playerBlocks = oldPlayerBlocks.get(player.getName());
+        int radius = 15 / (Hats.getConfig().getBoolean("hats.light.radius", false) ? 3 : 5);
 
         if (playerBlocks != null) {
             resetLight(playerBlocks, world);
             playerBlocks.clear();
         } else {
             playerBlocks = new HashMap<>();
-            oldBlocks.put(player.getName(), playerBlocks);
+            oldPlayerBlocks.put(player.getName(), playerBlocks);
         }
 
         for (int i = -radius; i <= radius; ++i) {
@@ -44,25 +45,27 @@ public class LightHandler {
         }
     }
 
-    public static void resetLight(HashMap<Location, Integer> oldBlocks, CraftWorld world) {
-        for (Map.Entry<Location, Integer> entry : oldBlocks.entrySet()) {
+    public static void resetLight(HashMap<Location, Integer> oldPlayerBlocks, CraftWorld world) {
+        for (Map.Entry<Location, Integer> entry : oldPlayerBlocks.entrySet()) {
             Location location = entry.getKey();
             int lightLevel = entry.getValue();
 
             if (location.getBlock().getTypeId() != 8 && location.getBlock().getTypeId() != 9) {
-                world.getHandle().b(EnumSkyBlock.BLOCK, location.getBlockX(), location.getBlockY(), location.getBlockZ(), lightLevel);
+                world.getHandle().b(EnumSkyBlock.BLOCK,
+                        location.getBlockX(), location.getBlockY(), location.getBlockZ(), lightLevel);
             } else {
-                world.getHandle().b(EnumSkyBlock.BLOCK, location.getBlockX(), location.getBlockY(), location.getBlockZ(), 0);
+                world.getHandle().b(EnumSkyBlock.BLOCK,
+                        location.getBlockX(), location.getBlockY(), location.getBlockZ(), 0);
             }
         }
     }
 
     public static void clearAllLight() {
         for (Player player : getServer().getOnlinePlayers()) {
-            if (LightHandler.oldBlocks.containsKey(player.getName())) {
-                HashMap<Location, Integer> playerBlocks = LightHandler.oldBlocks.get(player.getName());
+            if (oldPlayerBlocks.containsKey(player.getName())) {
+                HashMap<Location, Integer> playerBlocks = oldPlayerBlocks.get(player.getName());
                 if (playerBlocks != null) {
-                    LightHandler.resetLight(playerBlocks, (CraftWorld) player.getWorld());
+                    resetLight(playerBlocks, (CraftWorld) player.getWorld());
                     playerBlocks.clear();
                 }
             }
@@ -70,10 +73,18 @@ public class LightHandler {
     }
 
     public static void clearSpecificLight(Player player) {
-        HashMap<Location, Integer> playerBlocks = LightHandler.oldBlocks.get(player.getName());
+        HashMap<Location, Integer> playerBlocks = oldPlayerBlocks.get(player.getName());
         if (playerBlocks != null) {
-            LightHandler.resetLight(playerBlocks, (CraftWorld) player.getWorld());
+            resetLight(playerBlocks, (CraftWorld) player.getWorld());
             playerBlocks.clear();
         }
+    }
+
+    public static ArrayList<String> getPlayerLight() {
+        return playerLight;
+    }
+
+    public static HashMap<Player, Block> getPlayerBlocks() {
+        return playerBlocks;
     }
 }

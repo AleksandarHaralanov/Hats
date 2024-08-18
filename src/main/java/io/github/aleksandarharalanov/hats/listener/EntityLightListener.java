@@ -1,8 +1,7 @@
-package com.haralanov.hats.events;
+package io.github.aleksandarharalanov.hats.listener;
 
-import com.haralanov.hats.Hats;
-import com.haralanov.hats.LightHandler;
-
+import io.github.aleksandarharalanov.hats.Hats;
+import io.github.aleksandarharalanov.hats.handler.LightHandler;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityListener;
@@ -15,7 +14,7 @@ public class EntityLightListener extends EntityListener {
             return;
         }
 
-        boolean enabled = Hats.getConfig().getBoolean("hat-light.enabled", true);
+        boolean enabled = Hats.getConfig().getBoolean("hats.light.toggle", true);
         if (!enabled) {
             return;
         }
@@ -25,7 +24,7 @@ public class EntityLightListener extends EntityListener {
             return;
         }
 
-        if (!LightHandler.toggle.contains(player.getName())) {
+        if (!LightHandler.getPlayerLight().contains(player.getName())) {
             return;
         }
 

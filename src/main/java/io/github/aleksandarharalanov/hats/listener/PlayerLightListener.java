@@ -1,8 +1,7 @@
-package com.haralanov.hats.events;
+package io.github.aleksandarharalanov.hats.listener;
 
-import com.haralanov.hats.Hats;
-import com.haralanov.hats.LightHandler;
-
+import io.github.aleksandarharalanov.hats.Hats;
+import io.github.aleksandarharalanov.hats.handler.LightHandler;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.craftbukkit.block.CraftBlock;
 import org.bukkit.event.player.PlayerListener;
@@ -14,8 +13,9 @@ import java.util.Arrays;
 
 public class PlayerLightListener extends PlayerListener {
 
+    @Override
     public void onPlayerQuit(PlayerQuitEvent event) {
-        boolean enabled = Hats.getConfig().getBoolean("hat-light.enabled", true);
+        boolean enabled = Hats.getConfig().getBoolean("hats.light.toggle", true);
         if (!enabled) {
             return;
         }
@@ -25,15 +25,16 @@ public class PlayerLightListener extends PlayerListener {
             return;
         }
 
-        if (!LightHandler.toggle.contains(event.getPlayer().getName())) {
+        if (!LightHandler.getPlayerLight().contains(event.getPlayer().getName())) {
             return;
         }
 
         LightHandler.clearSpecificLight(event.getPlayer());
     }
 
+    @Override
     public void onPlayerMove(PlayerMoveEvent event) {
-        boolean enabled = Hats.getConfig().getBoolean("hat-light.enabled", true);
+        boolean enabled = Hats.getConfig().getBoolean("hats.light.toggle", true);
         if (!enabled) {
             return;
         }
@@ -43,17 +44,17 @@ public class PlayerLightListener extends PlayerListener {
             return;
         }
 
-        if (!LightHandler.toggle.contains(event.getPlayer().getName())) {
+        if (!LightHandler.getPlayerLight().contains(event.getPlayer().getName())) {
             return;
         }
 
-        if (LightHandler.playerBlocks.get(event.getPlayer()) != event.getPlayer().getLocation().getBlock()) {
+        if (LightHandler.getPlayerBlocks().get(event.getPlayer()) != event.getPlayer().getLocation().getBlock()) {
             ArrayList<Integer> source = (ArrayList<Integer>) Hats.getConfig().getIntList(
-                    "hat-light.source", Arrays.asList(10, 11, 50, 51, 89, 90, 91));
+                    "hats.light.source", Arrays.asList(10, 11, 50, 51, 89, 90, 91));
             if (!source.contains(event.getPlayer().getInventory().getHelmet().getTypeId())) {
                 LightHandler.clearSpecificLight(event.getPlayer());
             } else {
-                LightHandler.playerBlocks.put(event.getPlayer(), event.getPlayer().getLocation().getBlock());
+                LightHandler.getPlayerBlocks().put(event.getPlayer(), event.getPlayer().getLocation().getBlock());
                 CraftBlock block = (CraftBlock) event.getPlayer().getLocation().getBlock();
                 if (block != null) {
                     CraftWorld world = (CraftWorld) block.getWorld();

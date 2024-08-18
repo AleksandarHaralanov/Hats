@@ -1,16 +1,16 @@
-package com.haralanov.hats.events;
+package io.github.aleksandarharalanov.hats.listener;
 
-import com.haralanov.hats.Hats;
-import com.haralanov.hats.LightHandler;
-
+import io.github.aleksandarharalanov.hats.Hats;
+import io.github.aleksandarharalanov.hats.handler.LightHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 public class BlockLightListener extends BlockListener {
 
+    @Override
     public void onBlockPlace(BlockPlaceEvent event) {
-        boolean enabled = Hats.getConfig().getBoolean("hat-light.enabled", true);
+        boolean enabled = Hats.getConfig().getBoolean("hats.light.toggle", true);
         if (!enabled) {
             return;
         }
@@ -20,7 +20,7 @@ public class BlockLightListener extends BlockListener {
             return;
         }
 
-        if (!LightHandler.toggle.contains(event.getPlayer().getName())) {
+        if (!LightHandler.getPlayerLight().contains(event.getPlayer().getName())) {
             return;
         }
 
@@ -31,8 +31,9 @@ public class BlockLightListener extends BlockListener {
         LightHandler.clearSpecificLight(event.getPlayer());
     }
 
+    @Override
     public void onBlockBreak(BlockBreakEvent event) {
-        boolean enabled = Hats.getConfig().getBoolean("hat-light.enabled", true);
+        boolean enabled = Hats.getConfig().getBoolean("hats.light.toggle", true);
         if (!enabled) {
             return;
         }
@@ -42,7 +43,7 @@ public class BlockLightListener extends BlockListener {
             return;
         }
 
-        if (!LightHandler.toggle.contains(event.getPlayer().getName())) {
+        if (!LightHandler.getPlayerLight().contains(event.getPlayer().getName())) {
             return;
         }
 

@@ -1,26 +1,49 @@
-package com.haralanov.hats.utils;
+package io.github.aleksandarharalanov.hats.util;
+
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.config.Configuration;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.util.config.Configuration;
-
 import static org.bukkit.Bukkit.getServer;
 
+/**
+ * Utility class for managing plugin configuration files.
+ * <p>
+ * This class extends {@link Configuration} to provide custom methods for loading, saving, and managing
+ * configuration files. It automatically handles the creation of parent directories and copies default configuration
+ * files if they do not exist.
+ * <p>
+ * <b>Note:</b> This class assumes the presence of a pre-made {@code config.yml} file in the plugin's resources.
+ */
 public class ConfigUtil extends Configuration {
 
     private final File configFile;
     private final String pluginName;
 
+    /**
+     * Constructs a new instance of {@code ConfigUtil}.
+     *
+     * @param configFile the configuration file to manage
+     * @param plugin     the plugin instance using this configuration utility
+     */
     public ConfigUtil(File configFile, JavaPlugin plugin) {
         super(configFile);
         this.configFile = configFile;
         this.pluginName = plugin.getDescription().getName();
     }
 
+    /**
+     * Loads the configuration file.
+     * <ul>
+     * <li>Creates parent directories if they do not exist.</li>
+     * <li>Copies the default configuration file from resources if the configuration file does not exist.</li>
+     * <li>Attempts to load the configuration by calling the superclass' {@code load()} method.</li>
+     * <li>Logs errors if the configuration file cannot be loaded.</li>
+     */
     @Override
     public void load() {
         createParentDirectories();
@@ -36,6 +59,11 @@ public class ConfigUtil extends Configuration {
         }
     }
 
+    /**
+     * Creates the parent directories for the configuration file if they do not exist.
+     * <p>
+     * Logs an error if the directories cannot be created.
+     */
     private void createParentDirectories() {
         try {
             Files.createDirectories(configFile.getParentFile().toPath());
@@ -44,6 +72,11 @@ public class ConfigUtil extends Configuration {
         }
     }
 
+    /**
+     * Copies the default configuration file from the plugin's resources to the target location.
+     * <p>
+     * Logs an error if the default configuration file cannot be found or copied.
+     */
     private void copyDefaultConfig() {
         try (InputStream input = getClass().getResourceAsStream("/config.yml")) {
             if (input == null) {
@@ -58,6 +91,11 @@ public class ConfigUtil extends Configuration {
         }
     }
 
+    /**
+     * Loads the configuration file and logs the result.
+     * <p>
+     * Logs a message indicating whether the configuration was loaded successfully.
+     */
     public void loadConfig() {
         try {
             this.load();
@@ -67,6 +105,11 @@ public class ConfigUtil extends Configuration {
         }
     }
 
+    /**
+     * Saves the configuration file and logs the result.
+     * <p>
+     * Logs a message indicating whether the configuration was saved successfully.
+     */
     public void saveConfig() {
         try {
             this.save();
@@ -76,6 +119,11 @@ public class ConfigUtil extends Configuration {
         }
     }
 
+    /**
+     * Returns the configuration file managed by this utility.
+     *
+     * @return the configuration file
+     */
     public File getConfig() {
         return configFile;
     }

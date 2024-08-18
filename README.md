@@ -25,13 +25,22 @@ By default, only OPs have permission.
 
 Use PermissionsEx or similar plugins to grant groups the permission, enabling the commands.
 
-- Commands and permissions:
+#### Commands:
   - `/hat` - **Requires permission** `hats.wear` - Wear the block in hand as a hat.
   - `/hat light` - **Requires permission** `hats.light` - Toggle option for specific hats to emit light when worn.
-  - `/hat reload` - **Requires permission** `hats.modify` - Reloads the plugin configuration file.
+  - `/hat reload` - **Requires permission** `hats.settings` - Reloads the plugin configuration file.
   - `/hat about` - Prints the plugin's name, version, description, website and author.
+  - `/hat settings` - **Requires permission** `hats.settings`:
+    - `/hat s t [h | l | r]` - Toggle Hats/Hat Light/Wider Light Radius.
+    - `/hat s [a | r] [1-96]` - Add/Remove ID(s) of light source block hats.
+    - `/hat s v` - View ID(s) of current light source block hats.
 
-- Other permissions:
+#### Permissions:
+##### Single permissions:
+  - `hats.wear` - Allows the player to wear blocks as hats.
+  - `hats.light` - Allows specific hats to emit light and be toggled by the player when worn.
+  - `hats.settings` - Allows the player to view, reload, and modify the config.
+##### Wildcard permissions:
   - `hats.*` - Wildcard permission granting everything.
   - `hats.perks` - Grants `hats.wear` and `hats.light`.
 
@@ -40,23 +49,26 @@ Upon initial startup, the plugin automatically generates a configuration file lo
 
 **Default configuration file:**
 ```
-hat-light:
-    enabled: true
-    wider: false
-    source:
-    - 10
-    - 11
-    - 50
-    - 51
-    - 89
-    - 90
-    - 91
-    players: []
+hats:
+    toggle: true
+    light:
+        toggle: true
+        radius: false
+        source:
+        - 10
+        - 11
+        - 50
+        - 51
+        - 89
+        - 90
+        - 91
+        players: []
 ```
 
-- `hat-light.enabled` - Enables or disables the plugin's hat light emission feature.
-- `hat-light.wider` - Adjusts the radius of the light emitted from hats.
-- `hat-light.source` - Add or remove block IDs. These IDs are used by the plugin to identify which blocks emit light when worn as hats.
-- `hat-light.players` - Players can use the `/hat light` command to toggle their personal preference for hat light emission, which is saved in this configuration.
+- `hats.toggle` - Toggles the functionality of the entire plugin.
+- `hats.light.toggle` - Toggles the functionality of the Hats dynamic lightning feature.
+- `hats.light.radius` - Toggles between short and wide radius for the dynamic lightning feature.
+- `hats.light.source` - Add or remove block IDs. These IDs are used by the plugin to identify which blocks emit light when worn as hats.
+- `hats.light.players` - Players can use the `/hat light` command to toggle their personal preference for hat light emission, which is saved in this configuration.
 
 If you made changes to the configuration while the server is running, it is <u>strongly recommended</u> to use `/hat reload` to apply the changes instead of `/reload`.

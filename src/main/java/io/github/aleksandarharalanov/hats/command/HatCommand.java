@@ -206,6 +206,7 @@ public class HatCommand implements CommandExecutor {
         boolean current = Hats.getConfig().getBoolean(configKey, true);
         Hats.getConfig().setProperty(configKey, !current);
         Hats.getConfig().saveConfig();
+        LightHandler.clearAllLight();
 
         String result = String.valueOf(!current).substring(0, 1).toUpperCase() + String.valueOf(!current).substring(1);
         if (player == null) {
@@ -262,6 +263,8 @@ public class HatCommand implements CommandExecutor {
                 }
             }
         }
+
+        LightHandler.clearAllLight();
     }
 
     private static void viewCommand(Player player) {

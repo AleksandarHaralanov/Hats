@@ -54,7 +54,7 @@ Use PermissionsEx or similar plugins to grant groups the permission, enabling th
 #### Configuration
 Automatically generates configuration files `config.yml` and `players.yml` located at `plugins/Hats/`.
 
-**Default `config.yml`:**
+##### Default `config.yml`:
 ```yaml
 hats:
     toggle: true
@@ -75,11 +75,12 @@ hats:
         - 91
 ```
 
-**Default `players.yml`:**
+##### Default `players.yml`:
 ```yaml
 players:
   light-enabled: []
   effects-disabled: []
 ```
 
+####
 If you made changes to the configuration while the server is running, it is strongly recommended to use `/hat settings reload` to apply the changes instead of `/reload`.

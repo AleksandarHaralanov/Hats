@@ -1,28 +1,29 @@
 package io.github.aleksandarharalanov.hats.handler;
 
-import io.github.aleksandarharalanov.hats.Hats;
 import net.minecraft.server.EnumSkyBlock;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
+import java.util.*;
+
+import static io.github.aleksandarharalanov.hats.Hats.getPlayersConfig;
+import static io.github.aleksandarharalanov.hats.Hats.getPluginConfig;
+import static io.github.aleksandarharalanov.hats.util.AccessUtil.hasPermission;
 import static org.bukkit.Bukkit.getServer;
 
 public class LightHandler {
 
-    private static final ArrayList<String> playerLight = new ArrayList<>();
-    private static final HashMap<Player, Block> playerBlocks = new HashMap<>();
+    private static final ArrayList<String> playerLight = new ArrayList<>(
+            getPlayersConfig().getStringList("players.light-enabled", Collections.singletonList(null))
+    );
+    private static final HashMap<Player, Block> playerLastBlock = new HashMap<>();
     private static final HashMap<String, HashMap<Location, Integer>> oldPlayerBlocks = new HashMap<>();
 
     public static void lightUp(int x, int y, int z, CraftWorld world, Player player) {
         HashMap<Location, Integer> playerBlocks = oldPlayerBlocks.get(player.getName());
-        int radius = 15 / (Hats.getConfig().getBoolean("hats.light.radius", false) ? 3 : 5);
-
         if (playerBlocks != null) {
             resetLight(playerBlocks, world);
             playerBlocks.clear();
@@ -31,11 +32,13 @@ public class LightHandler {
             oldPlayerBlocks.put(player.getName(), playerBlocks);
         }
 
+        int radius = LightRadius.fromValue(getPluginConfig().getString("hats.light.radius", "NARROW"));
+        int level = LightLevel.fromValue(getPluginConfig().getString("hats.light.level", "LOW"));
         for (int i = -radius; i <= radius; ++i) {
             for (int j = -radius; j <= radius; ++j) {
                 for (int k = -radius; k <= radius; ++k) {
                     int oldLevel = world.getHandle().getLightLevel(x + i, y + j, z + k);
-                    int actLevel = 15 - (Math.abs(i) + Math.abs(j) + Math.abs(k));
+                    int actLevel = level - (Math.abs(i) + Math.abs(j) + Math.abs(k));
                     if (actLevel > oldLevel) {
                         playerBlocks.put(new Location(world, (x + i), (y + j), (z + k)), oldLevel);
                         world.getHandle().b(EnumSkyBlock.BLOCK, x + i, y + j, z + k, actLevel);
@@ -80,11 +83,22 @@ public class LightHandler {
         }
     }
 
+    public static boolean isLightEnabled(Player player) {
+        ArrayList<Integer> source = (ArrayList<Integer>) getPluginConfig().getIntList(
+                "hats.light.source", Arrays.asList(10, 11, 50, 51, 52, 62, 89, 90, 91));
+
+        boolean allowed = getPluginConfig().getBoolean("hats.light.toggle", true);
+        boolean permission = hasPermission(player, "hats.light");
+        boolean enabled = playerLight.contains(player.getName());
+        boolean hat = source.contains(player.getInventory().getHelmet().getTypeId());
+        return allowed && permission && enabled && hat;
+    }
+
     public static ArrayList<String> getPlayerLight() {
         return playerLight;
     }
 
-    public static HashMap<Player, Block> getPlayerBlocks() {
-        return playerBlocks;
+    public static HashMap<Player, Block> getPlayerLastBlock() {
+        return playerLastBlock;
     }
 }

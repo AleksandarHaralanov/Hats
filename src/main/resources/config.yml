@@ -1,14 +1,17 @@
 hats:
     toggle: true
+    effects: true
     light:
         toggle: true
-        radius: false
+        radius: NARROW
+        level: LOW
         source:
         - 10
         - 11
         - 50
         - 51
+        - 52
+        - 62
         - 89
         - 90
         - 91
-        players: []

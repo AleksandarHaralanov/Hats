@@ -18,7 +18,8 @@ The plugin also includes sound and visual effects to enhance the experience of w
   - Checks for a newer version of the plugin and provides a download link in the console if available.
 
 ### Download
-Latest stable release of **Hats** can be found [here](https://github.com/AleksandarHaralanov/Hats/releases/latest).
+Latest releases of **Hats** can be found here on [GitHub](https://github.com/AleksandarHaralanov/Hats/releases).<br>
+Alternatively, you can also download through [Modrinth](https://modrinth.com/plugin/hats-b1.7.3/versions).
 
 The plugin is fully open-source and transparent. If you'd like additional peace of mind, you're welcome to scan the `.jar` file using [VirusTotal](https://www.virustotal.com/gui/home/upload).
 
@@ -82,5 +83,4 @@ players:
   effects-disabled: []
 ```
 
-####
 If you made changes to the configuration while the server is running, it is strongly recommended to use `/hat settings reload` to apply the changes instead of `/reload`.

@@ -7,7 +7,7 @@ It allows players to wear blocks in the helmet slot as hats and optionally emit 
 The plugin also includes sound and visual effects to enhance the experience of wearing and interacting with hats.
 
 ### Features
-- Wear any block as a hat. ([Block IDs 1-96](assets/Items.png))
+- Wear any block as a hat. ([Block IDs 1-96](https://raw.githubusercontent.com/AleksandarHaralanov/Hats/refs/heads/master/assets/Items.png))
 - Configure which hats will emit light around the player, visible to everyone.
 - Modify the radius and intensity of the emitted light.
 - Enjoy sound and visual effects when wearing hats or switching the light on/off.

@@ -82,5 +82,5 @@ players:
   light-enabled: []
   effects-disabled: []
 ```
-
-If you made changes to the configuration while the server is running, it is strongly recommended to use `/hat settings reload` to apply the changes instead of `/reload`.
+> [!CAUTION]
+> If you made changes to the configuration while the server is running, it is strongly recommended to use `/hat settings reload` to apply the changes instead of `/reload`.

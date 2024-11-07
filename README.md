@@ -31,6 +31,9 @@ By default, only OPs have permission.
 
 Use PermissionsEx or similar plugins to grant groups the permission, enabling the commands.
 
+> [!NOTE]
+> Commands, permissions, and configs below are examples of the latest **pre-release** of Hats. Not to be confused with the stable release.
+
 #### Commands:
   - `/hat` - `hats.wear` - Wear the block in hand as a hat.
   - `/hat effects` - `hats.wear` - Toggle personal effects.

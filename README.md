@@ -24,7 +24,7 @@ Alternatively, you can also download through [Modrinth](https://modrinth.com/plu
 The plugin is fully open-source and transparent. If you'd like additional peace of mind, you're welcome to scan the `.jar` file using [VirusTotal](https://www.virustotal.com/gui/home/upload).
 
 ### Requirements
-Your b1.7.3 server must be running one of the following APIs: CB1000-CB1092, [Project Poseidon](https://github.com/RhysB/Project-Poseidon) or [UberBukkit](https://github.com/Moresteck/Project-Poseidon-Uberbukkit).
+Your b1.7.3 server must be running one of the following APIs: CB1060-CB1092, [Project Poseidon](https://github.com/RhysB/Project-Poseidon) or [UberBukkit](https://github.com/Moresteck/Project-Poseidon-Uberbukkit).
 
 ### Usage
 By default, only OPs have permission.

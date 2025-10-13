@@ -35,25 +35,30 @@ Use PermissionsEx or similar plugins to grant groups the permission, enabling th
 > Commands, permissions, and configs below are examples of the latest **pre-release** of Hats. Not to be confused with the stable release.
 
 #### Commands:
-  - `/hat` - `hats.wear` - Wear the block in hand as a hat.
-  - `/hat effects` - `hats.wear` - Toggle personal effects.
-  - `/hat light` - `hats.light` - Toggle personal hat light.
-  - `/hat light view` - View hat light source blocks.
-  - `/hat about` - See Hats' information.
-  - `/hat settings <args...>` - `hats.settings` - Manage Hats' settings. (Staff):
-    - `reload` - Reload Hats' configuration.
-    - `toggle <hats | effects | light>` - Toggle features.
-    - `alter <radius | level>` - Alter hat light behavior.
-    - `<add | remove> <1-96>` - Modify hat light source blocks.
+| Command | Permission | Description |
+|---------|------------|-------------|
+| `/hat` | `hats.wear` | Wear the block in hand as a hat. |
+| `/hat effects` | `hats.wear` | Toggle personal effects. |
+| `/hat light` | `hats.light` | Toggle personal hat light. |
+| `/hat light view` | None | View hat light source blocks. |
+| `/hat about` | None | See Hats' information. |
+| `/hat settings <args...>` | `hats.settings` | Manage Hats' settings. (Args. below) |
+
+| Arg | Description |
+|-----|-------------|
+| `reload` | Reload Hats' configuration. |
+| `toggle <hats\|effects\|light>` | Toggle features. |
+| `alter <radius\|level>` | Alter hat light behavior. |
+| `<add\|remove> <1-96>` | Modify hat light source blocks. |
 
 #### Permissions:
-##### Single permissions:
-  - `hats.wear` - Allows the player to wear blocks as hats.
-  - `hats.light` - Allows specific hats to emit light and be toggled by the player when worn.
-  - `hats.settings` - Allows the player to reload and change the config.
-##### Wildcard permissions:
-  - `hats.*` - Wildcard permission granting everything.
-  - `hats.perks` - Grants `hats.wear` and `hats.light`.
+| Permission | Description|
+|------------|------------|
+| `hats.*` | Wildcard permission granting everything. |
+| `hats.perks` | Grants `hats.wear` and `hats.light`. |
+| `hats.wear` | Allows the player to wear blocks as hats. |
+| `hats.light` | Allows specific hats to emit light and be toggled by the player when worn. |
+| `hats.settings` | Allows the player to reload and change the config. |
 
 #### Configuration
 Automatically generates configuration files `config.yml` and `players.yml` located at `plugins/Hats/`.

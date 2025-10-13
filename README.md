@@ -42,8 +42,9 @@ Use PermissionsEx or similar plugins to grant groups the permission, enabling th
 | `/hat light` | `hats.light` | Toggle personal hat light. |
 | `/hat light view` | None | View hat light source blocks. |
 | `/hat about` | None | See Hats' information. |
-| `/hat settings <args...>` | `hats.settings` | Manage Hats' settings. (Args. below) |
+| `/hat settings <args...>` | `hats.settings` | Manage Hats' settings. |
 
+##### Staff Settings Arguments:
 | Arg | Description |
 |-----|-------------|
 | `reload` | Reload Hats' configuration. |

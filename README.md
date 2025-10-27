@@ -6,6 +6,11 @@
 It allows players to wear blocks in the helmet slot as hats and optionally emit light from these hats, depending on the configured blocks.
 The plugin also includes sound and visual effects to enhance the experience of wearing and interacting with hats.
 
+![Software](https://img.shields.io/badge/build-craftbukkit1060-purple)
+![Version](https://img.shields.io/github/v/release/AleksandarHaralanov/Hats?display_name=tag&sort=semver)
+![Downloads](https://img.shields.io/github/downloads/AleksandarHaralanov/Hats/total?color=green)
+![License](https://img.shields.io/github/license/AleksandarHaralanov/Hats)
+
 ### Features
 - Wear any block as a hat. ([Block IDs 1-96](https://raw.githubusercontent.com/AleksandarHaralanov/Hats/refs/heads/master/assets/Items.png))
 - Configure which hats will emit light around the player, visible to everyone.
